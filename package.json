@@ -4,21 +4,31 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3333 --host --open",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "tauri": "tauri"
   },
   "dependencies": {
+    "@logto/vue": "1.0.0-beta.0",
     "@tauri-apps/api": "^1.0.2",
-    "vue": "^3.2.37"
+    "@vueuse/core": "^8.9.4",
+    "@vueuse/head": "^0.7.6",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.2"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.2",
+    "@iconify-json/carbon": "^1.1.6",
     "@tauri-apps/cli": "^1.0.4",
+    "@types/canvas-confetti": "^1.4.3",
+    "@types/node": "^18.0.6",
+    "@unocss/reset": "^0.44.5",
     "@vitejs/plugin-vue": "^3.0.1",
     "@vue/test-utils": "^2.0.2",
+    "axios": "^0.27.2",
+    "canvas-confetti": "^1.5.1",
     "eslint": "^8.20.0",
     "jsdom": "^20.0.0",
     "pnpm": "^7.5.2",
@@ -27,6 +37,7 @@
     "unplugin-auto-import": "^0.9.5",
     "unplugin-vue-components": "^0.21.1",
     "vite": "^3.0.2",
+    "vite-plugin-pages": "^0.25.0",
     "vitest": "^0.18.1",
     "vue-tsc": "^0.38.9"
   },
