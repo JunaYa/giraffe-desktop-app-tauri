@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { invoke } from '@tauri-apps/api'
+const test = ref('')
+invoke('greet', { name: 'World' })
+  // `invoke` returns a Promise
+  .then(response => test.value = response)
 const name = $ref('')
 
 const router = useRouter()
@@ -11,6 +16,7 @@ const go = () => {
 <template>
   <div>
     <div i-carbon-campsite text-4xl inline-block />
+    <div>test {{ test }}</div>
     <p>
       <a rel="noreferrer" href="https://github.com/antfu/vitesse-lite" target="_blank">
         Vitesse Lite
