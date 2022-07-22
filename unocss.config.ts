@@ -34,6 +34,27 @@ export default defineConfig({
         sans: 'DM Sans',
         serif: 'DM Serif Display',
         mono: 'DM Mono',
+        //   // STYuanti-SC
+        // STYuanti: 'https://static.hetaoimg.com/avu7i4/JC6ONNQ74N.TTF',
+        // // YouSheBiaoTiHei
+        // YouSheBiaoTiHei: 'https://static.hetaoimg.com/avu7i4/J959JNCOH9.ttf',
+        YouSheBiaoTiHei: 'YouSheBiaoTiHei',
+        // // FZCuYuan-M03S
+        // FZCuYuan: 'https://static.hetaoimg.com/avu7i4/2WJZ4YAJ86.ttf',
+        // // FZY3JW--GB1
+        // FZY3JW: 'https://static.hetaoimg.com/avu7i4/HW6W62H3MO.ttf',
+        // // impact-2
+        // impact: 'https://static.hetaoimg.com/avu7i4/VJYOS95R6D.ttf',
+        // // Alibaba-PuHuiTi-Light
+        // phl: 'https://static.hetaoimg.com/avu7i4/22FKNNXIEL.ttf',
+        // // Alibaba-PuHuiTi-Regular
+        // phr: 'https://static.hetaoimg.com/avu7i4/7CF6EAJBJJ.ttf',
+        // // Alibaba-PuHuiTi-Medium
+        // phm: 'https://static.hetaoimg.com/avu7i4/6JILIK4EYP.ttf',
+        // // Alibaba-PuHuiTi-Bold
+        // phb: 'https://static.hetaoimg.com/avu7i4/5DLTJVHMC3.ttf',
+        // // Alibaba-PuHuiTi-Heavy
+        // phh: 'https://static.hetaoimg.com/avu7i4/IP3X6JIMFL.ttf',
       },
     }),
   ],
