@@ -55,6 +55,7 @@
     },
     "windows": [
       {
+        "label": "main",
         "fullscreen": false,
         "height": 600,
         "width": 800,
@@ -63,12 +64,13 @@
         "url": "http://localhost:4000"
       },
       {
-        "label": "setting",
-        "height": 300,
+        "label": "splashscreen",
+        "height": 200,
         "width": 400,
         "resizable": false,
-        "title": "Setting",
-        "url": "http://localhost:4000/hi/me"
+        "title": "splashscreen",
+        "decorations": false,
+        "url": "http://localhost:4000/splashscreen"
       }
     ]
   }

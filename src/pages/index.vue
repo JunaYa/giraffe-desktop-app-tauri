@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api'
 import { WebviewWindow } from '@tauri-apps/api/window'
+
 const openDocs = () => {
   const webview = new WebviewWindow('theUniqueLabel', {
     url: 'hi/there',
@@ -15,6 +16,10 @@ const openDocs = () => {
   })
 }
 
+const closeSplashscreen = () => {
+  invoke('close_splashscreen')
+}
+
 const test = ref('')
 invoke('greet', { name: 'World' })
   // `invoke` returns a Promise
@@ -26,6 +31,13 @@ const go = () => {
   if (name)
     router.push(`/hi/${encodeURIComponent(name)}`)
 }
+
+onMounted(() => {
+  // `invoke` returns a Promise
+  setTimeout(() => {
+    closeSplashscreen()
+  }, 3000)
+})
 </script>
 
 <template>
@@ -33,6 +45,9 @@ const go = () => {
     <div i-carbon-campsite text-4xl inline-block />
     <button @click="openDocs">
       open docs
+    </button>
+    <button @click="closeSplashscreen">
+      close splashscreen
     </button>
     <div>test {{ test }}</div>
     <p>
