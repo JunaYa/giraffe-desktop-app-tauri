@@ -57,16 +57,16 @@
       {
         "label": "main",
         "fullscreen": false,
-        "height": 600,
-        "width": 800,
+        "height": 700,
+        "width": 1240,
         "resizable": true,
         "title": "Giraffe",
         "url": "http://localhost:4000"
       },
       {
         "label": "splashscreen",
-        "height": 200,
-        "width": 400,
+        "height": 600,
+        "width": 800,
         "resizable": false,
         "title": "splashscreen",
         "decorations": false,
