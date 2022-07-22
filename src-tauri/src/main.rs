@@ -14,7 +14,7 @@ fn main() {
   .add_native_item(MenuItem::Copy)
   .add_item(CustomMenuItem::new("hide", "Hide"))
   .add_submenu(submenu);
-  tauri::Builder::default()
+  let app = tauri::Builder::default()
     .invoke_handler(tauri::generate_handler![greet])
     .setup(|app| {
       let window = WindowBuilder::new(
@@ -24,6 +24,12 @@ fn main() {
       )
       .menu(menu)
       .build()?;
+      // open new window
+      // let local_window = tauri::WindowBuilder::new(
+      //   app,
+      //   "Setting",
+      //   tauri::WindowUrl::App("http://localhost:4000/hi/me".into())
+      // ).build()?;
       let window_ = window.clone();
       window.on_menu_event(move |event| {
         match event.menu_item_id() {
@@ -48,9 +54,20 @@ fn main() {
     })
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
+
+    
 }
 
 #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}!", name)
+}
+
+#[tauri::command]
+async fn open_docs(handle: tauri::AppHandle) {
+  let docs_window = tauri::WindowBuilder::new(
+    &handle,
+    "open new", /* the unique window label */
+    tauri::WindowUrl::External("https://tauri.app/".parse().unwrap())
+  ).build().unwrap();
 }

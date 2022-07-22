@@ -57,9 +57,18 @@
       {
         "fullscreen": false,
         "height": 600,
+        "width": 800,
         "resizable": true,
         "title": "Giraffe",
-        "width": 800
+        "url": "http://localhost:4000"
+      },
+      {
+        "label": "setting",
+        "height": 300,
+        "width": 400,
+        "resizable": false,
+        "title": "Setting",
+        "url": "http://localhost:4000/hi/me"
       }
     ]
   }

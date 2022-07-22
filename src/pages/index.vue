@@ -1,5 +1,20 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api'
+import { WebviewWindow } from '@tauri-apps/api/window'
+const openDocs = () => {
+  const webview = new WebviewWindow('theUniqueLabel', {
+    url: 'hi/there',
+  })
+  // since the webview window is created asynchronously,
+  // Tauri emits the `tauri://created` and `tauri://error` to notify you of the creation response
+  webview.once('tauri://created', () => {
+  // webview window successfully created
+  })
+  webview.once('tauri://error', (e) => {
+  // an error happened creating the webview window
+  })
+}
+
 const test = ref('')
 invoke('greet', { name: 'World' })
   // `invoke` returns a Promise
@@ -16,6 +31,9 @@ const go = () => {
 <template>
   <div>
     <div i-carbon-campsite text-4xl inline-block />
+    <button @click="openDocs">
+      open docs
+    </button>
     <div>test {{ test }}</div>
     <p>
       <a rel="noreferrer" href="https://github.com/antfu/vitesse-lite" target="_blank">
