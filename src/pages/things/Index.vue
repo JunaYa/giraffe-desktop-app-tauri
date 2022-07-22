@@ -1,8 +1,16 @@
 <script lang="ts" setup>
 import { useNavStore } from './stores/index'
+import { Menu } from './stores/type'
 
 const nav = useNavStore()
 nav.init()
+
+const router = useRouter()
+const onClick = (info: Menu) => {
+  router.push(info?.path)
+  nav.activeMenu(info?.id)
+}
+
 let sidebarWidth = ref<any>(200)
 let startWidth = ref<any>(200)
 let startX = ref<any>(0)
@@ -33,7 +41,7 @@ onMounted(() => {
 <template>
   <div relative min-w-36px pr-14px :style="{ width: sidebarWidth + 'px' }">
     <div w-auto h-100vh overflow-hidden p-1 pt-2rem style="background: #f5f6f8;">
-      <nav v-for="(item, index) in nav.menuList" :key="index">{{item.name}}</nav>
+      <nav v-for="(item, index) in nav.menuList" :key="index" @click="onClick(item)">{{item.name}}</nav>
     </div>
     <div class="separator" absolute top-0 right-0 frc w-14px h-100vh bg-white cursor-col-resize><i></i><i></i></div>
   </div>
