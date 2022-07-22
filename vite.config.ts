@@ -1,22 +1,72 @@
+/// <reference types="vitest" />
+
+import path from 'path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
-import Unocss from 'unocss/vite'
-import { presetAttributify, presetUno } from 'unocss'
-import AutoImport from 'unplugin-auto-import/vite'
+import Pages from 'vite-plugin-pages'
 import Components from 'unplugin-vue-components/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import Unocss from 'unocss/vite'
+import Legacy from '@vitejs/plugin-legacy'
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '~/': `${path.resolve(__dirname, 'src')}/`,
+    },
+  },
+
   plugins: [
-    Vue(),
-    Unocss({
-      presets: [
-        presetAttributify({ /* preset options */}),
-        presetUno(),
-        // ...custom presets
-      ],
+    Vue({
+      reactivityTransform: true,
     }),
-    AutoImport({ /* options */ }),
-    Components({ /* options */ }),
-  ]
+
+    // https://github.com/hannoeru/vite-plugin-pages
+    Pages({
+      exclude: ['**/components/*.vue'],
+    }),
+
+    // https://github.com/antfu/unplugin-auto-import
+    AutoImport({
+      imports: [
+        'vue',
+        'vue/macros',
+        'vue-router',
+        '@vueuse/core',
+      ],
+      dts: true,
+      dirs: [
+        './src/composables',
+      ],
+      vueTemplate: true,
+    }),
+
+    // https://github.com/antfu/vite-plugin-components
+    Components({
+      dts: true,
+    }),
+
+    // https://github.com/antfu/unocss
+    // see unocss.config.ts for config
+    Unocss(),
+
+    Legacy(),
+  ],
+
+  server: {
+    port: 8080,
+    host: '0.0.0.0',
+    proxy: {
+      '/api/': {
+        target: 'https://api.testing1.hetao101.com',
+        changeOrigin: true,
+        rewrite: p => p.replace(/^\/api-prod/, ''),
+      },
+    },
+  },
+
+  // https://github.com/vitest-dev/vitest
+  test: {
+    environment: 'jsdom',
+  },
 })

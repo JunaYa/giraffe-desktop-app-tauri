@@ -3,7 +3,7 @@
   "build": {
     "beforeBuildCommand": "pnpm build",
     "beforeDevCommand": "pnpm dev",
-    "devPath": "http://localhost:5173",
+    "devPath": "http://localhost:4000",
     "distDir": "../dist"
   },
   "package": {
@@ -55,11 +55,22 @@
     },
     "windows": [
       {
+        "label": "main",
         "fullscreen": false,
         "height": 600,
+        "width": 800,
         "resizable": true,
-        "title": "app",
-        "width": 800
+        "title": "Giraffe",
+        "url": "http://localhost:4000"
+      },
+      {
+        "label": "splashscreen",
+        "height": 200,
+        "width": 400,
+        "resizable": false,
+        "title": "splashscreen",
+        "decorations": false,
+        "url": "http://localhost:4000/splashscreen"
       }
     ]
   }

@@ -3,10 +3,16 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 import '@vue/runtime-core'
 
-export {}
-
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    CallbackView: typeof import('./src/components/CallbackView.vue')['default']
+    Confetti: typeof import('./src/components/Confetti.vue')['default']
+    Counter: typeof import('./src/components/Counter.vue')['default']
+    Footer: typeof import('./src/components/Footer.vue')['default']
+    PageLoading: typeof import('./src/components/PageLoading.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    SafeArea: typeof import('./src/components/SafeArea.vue')['default']
+    SingleScroll: typeof import('./src/components/SingleScroll.vue')['default']
   }
 }
