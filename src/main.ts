@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import { createHead } from '@vueuse/head'
 import { createRouter, createWebHistory } from 'vue-router'
 import routes from 'virtual:generated-pages'
@@ -12,13 +13,16 @@ import './styles/main.css'
 import 'uno.css'
 
 import Axios from './apis/ajax'
+const app = createApp(App)
 
 const config: LogtoConfig = {
   endpoint: 'https://3001-logtoio-logto-icf8geyvtc5.ws-us54.gitpod.io',
   appId: '4B1rrU3ptVn2ko0kJixbj',
 }
 
-const app = createApp(App)
+const pinia = createPinia()
+app.use(pinia)
+
 app.use(createLogto, config)
 
 // 全局注册元素自动埋点指令
@@ -38,8 +42,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
+app.use(router)
+
 const head = createHead()
 app.use(head)
-app.use(router)
+
 app.provide('$http', Axios)
 app.mount('#app')
