@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
+    "lint": "eslint .",
     "tauri": "tauri"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "unplugin-auto-import": "^0.9.4",
     "unplugin-vue-components": "^0.21.1",
     "vite": "^3.0.0",
+    "vitest": "^0.18.1",
     "vue-tsc": "^0.38.4"
   },
   "eslintConfig": {

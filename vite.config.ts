@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Unocss from 'unocss/vite'
-import { presetAttributify, presetUno } from 'unocss'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 
@@ -9,14 +8,31 @@ import Components from 'unplugin-vue-components/vite'
 export default defineConfig({
   plugins: [
     Vue(),
-    Unocss({
-      presets: [
-        presetAttributify({ /* preset options */}),
-        presetUno(),
-        // ...custom presets
+    // https://github.com/antfu/unocss
+    // see unocss.config.ts for config
+    Unocss(),
+    // https://github.com/antfu/unplugin-auto-import
+    AutoImport({
+      imports: [
+        'vue',
+        'vue/macros',
+        'vue-router',
+        '@vueuse/core',
       ],
+      dts: true,
+      dirs: [
+        './src/composables',
+      ],
+      vueTemplate: true,
     }),
-    AutoImport({ /* options */ }),
-    Components({ /* options */ }),
-  ]
+    // https://github.com/antfu/vite-plugin-components
+    Components({
+      dts: true,
+    }),
+  ],
+
+  // https://github.com/vitest-dev/vitest
+  test: {
+    environment: 'jsdom',
+  },
 })
