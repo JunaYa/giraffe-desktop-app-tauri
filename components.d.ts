@@ -16,3 +16,5 @@ declare module '@vue/runtime-core' {
     SingleScroll: typeof import('./src/components/SingleScroll.vue')['default']
   }
 }
+
+export {}
