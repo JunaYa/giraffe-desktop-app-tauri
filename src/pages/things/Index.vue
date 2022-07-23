@@ -1,16 +1,9 @@
 <script lang="ts" setup>
 import { useNavStore } from './stores/index'
-import { Menu } from './stores/type'
 
 const nav = useNavStore()
 nav.init()
 console.log('nav', nav.currentNav)
-
-const router = useRouter()
-const onClick = (info: Menu) => {
-  // router.push(info?.path)
-  nav.activeMenu(info?.id)
-}
 
 let sidebarWidth = ref<any>(200)
 let startWidth = ref<any>(200)
@@ -49,7 +42,7 @@ onMounted(() => {
         class="menu-btn"
         :class="item.id === nav.currentNav ? 'bg-gray-200' : ''"
         active:bg-gray-200
-        @click="onClick(item)">
+        @click="nav.activeMenu(item?.id)">
         <span>{{item.name}}</span>
         </nav>
     </div>
