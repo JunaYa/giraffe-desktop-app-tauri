@@ -3,54 +3,30 @@ import { useNavStore } from './stores/index'
 
 const nav = useNavStore()
 nav.init()
-console.log('nav', nav.currentNav)
-
-let sidebarWidth = ref<any>(200)
-let startWidth = ref<any>(200)
-let startX = ref<any>(0)
-
-onMounted(() => {
-  const startDrag = (e: any) => {
-    startWidth.value = sidebarWidth.value
-    startX.value = e.clientX
-    document.documentElement.addEventListener('mousemove', onDrag)
-    document.documentElement.addEventListener('mouseup', stopDrag)
-  }
-
-  const onDrag = (e: any) => {
-    sidebarWidth.value = startWidth.value + e.clientX - startX.value
-  }
-
-  const stopDrag = (e: any) => {
-    document.documentElement.removeEventListener('mousemove', onDrag)
-    document.documentElement.removeEventListener('mouseup', stopDrag)
-  }
-
-  document
-    ?.querySelector('.separator')
-    ?.addEventListener('mousedown', startDrag)
-})
 </script>
 
 <template>
-  <div relative min-w-36px pr-14px :style="{ width: sidebarWidth + 'px' }">
-    <div w-auto h-100vh overflow-hidden p-2 pt-2rem style="background: #f5f6f8;">
-      <nav
-        v-for="(item, index) in nav.menuList"
-        :key="index"
-        frb p1
-        class="menu-btn"
-        :class="item.id === nav.currentNav ? 'bg-gray-200' : ''"
-        active:bg-gray-200
-        @click="nav.activeMenu(item?.id)">
-        <span>{{item.name}}</span>
+  <Slidebar>
+    <template #slide>
+      <div w-auto h-100vh overflow-hidden p-2 pt-2rem style="background: #f5f6f8;">
+        <nav
+          v-for="(item, index) in nav.menuList"
+          :key="index"
+          frb p1
+          class="menu-btn"
+          :class="item.id === nav.currentNav ? 'bg-gray-200' : ''"
+          active:bg-gray-200
+          @click="nav.activeMenu(item?.id)">
+          <span>{{item.name}}</span>
         </nav>
-    </div>
-    <div class="separator" absolute top-0 right-0 frc w-14px h-100vh bg-white cursor-col-resize><i></i><i></i></div>
-  </div>
-  <div relative flex-1 id="things_main">
-    <!-- <router-view /> -->
-  </div>
+      </div>
+    </template>
+    <template #main >
+      <div>
+        content
+      </div>
+    </template>
+  </Slidebar>
 </template>
 
 <style scoped>

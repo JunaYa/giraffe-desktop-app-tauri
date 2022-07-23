@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     SafeArea: typeof import('./src/components/SafeArea.vue')['default']
     SingleScroll: typeof import('./src/components/SingleScroll.vue')['default']
+    Slidebar: typeof import('./src/components/Slidebar.vue')['default']
   }
 }
 
