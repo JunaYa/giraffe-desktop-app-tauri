@@ -31,12 +31,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div relative min-w-36px pr-14px :style="{ width: sidebarWidth + 'px' }">
-    <slot name="slide" />
-    <div class="separator" absolute top-0 right-0 frc w-14px h-100vh bg-white cursor-col-resize><i></i><i></i></div>
-  </div>
-  <div relative flex-1 id="things_main">
-    <slot name="main" />
+  <div frb>
+    <div relative w-auto min-w-36px min-h-100vh max-h-100vh :style="{ width: sidebarWidth + 'px' }">
+      <slot name="slide" />
+      <div class="separator" absolute top-0 right-0 frc w-14px h-100vh bg-white cursor-col-resize><i></i><i></i></div>
+    </div>
+    <div relative flex-1 id="things_main">
+      <slot name="main" />
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { Menu } from './type'
+import { Menu, Todo } from './type'
+import { useStorage } from '@vueuse/core'
 // import state from './state'
 // import getters from './getters'
 // import actions from './actions'
@@ -9,11 +10,13 @@ export const useNavStore = defineStore('main', {
     return {
       currentPage: 1001 as number,
       navList: [] as Menu[],
+      todoList: [] as Todo[],
     }
   },
   getters: {
     currentNav: (state) => state.currentPage,
     menuList: (state) => state.navList,
+    todoList: (state) => state.todoList,
   },
   actions: {
     init() {

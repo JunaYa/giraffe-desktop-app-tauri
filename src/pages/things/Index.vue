@@ -8,7 +8,7 @@ nav.init()
 <template>
   <Slidebar>
     <template #slide>
-      <div w-auto h-100vh overflow-hidden p-2 pt-2rem style="background: #f5f6f8;">
+      <div class="other" flex-1 w-auto h-auto overflow-y-scroll p-2 pt-2rem style="background: #f5f6f8;">
         <nav
           v-for="(item, index) in nav.menuList"
           :key="index"
@@ -20,25 +20,28 @@ nav.init()
           <span>{{item.name}}</span>
         </nav>
       </div>
+      <footer flex-0>
+        content
+      </footer>
     </template>
     <template #main >
-      <div>
+      <div class="other">
         content
       </div>
+      <footer frc>
+        <button class="icon-btn" i="ph:plus-bold">+</button>
+      </footer>
     </template>
   </Slidebar>
 </template>
 
 <style scoped>
-  .separator {
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
+  .other {
+    height: calc(100vh - 2rem);
   }
 
-  .separator i {
-    display: inline-block;
-    width: 1px;
-    height: 14px;
-    margin: 0 1px;
-    background-color: #e9e9e9;
+  footer {
+    height: 2rem;
+    background: #f5f6f8;
   }
 </style>
