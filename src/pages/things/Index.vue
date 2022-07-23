@@ -4,10 +4,11 @@ import { Menu } from './stores/type'
 
 const nav = useNavStore()
 nav.init()
+console.log('nav', nav.currentNav)
 
 const router = useRouter()
 const onClick = (info: Menu) => {
-  router.push(info?.path)
+  // router.push(info?.path)
   nav.activeMenu(info?.id)
 }
 
@@ -40,13 +41,22 @@ onMounted(() => {
 
 <template>
   <div relative min-w-36px pr-14px :style="{ width: sidebarWidth + 'px' }">
-    <div w-auto h-100vh overflow-hidden p-1 pt-2rem style="background: #f5f6f8;">
-      <nav v-for="(item, index) in nav.menuList" :key="index" @click="onClick(item)">{{item.name}}</nav>
+    <div w-auto h-100vh overflow-hidden p-2 pt-2rem style="background: #f5f6f8;">
+      <nav
+        v-for="(item, index) in nav.menuList"
+        :key="index"
+        frb p1
+        class="menu-btn"
+        :class="item.id === nav.currentNav ? 'bg-gray-200' : ''"
+        active:bg-gray-200
+        @click="onClick(item)">
+        <span>{{item.name}}</span>
+        </nav>
     </div>
     <div class="separator" absolute top-0 right-0 frc w-14px h-100vh bg-white cursor-col-resize><i></i><i></i></div>
   </div>
   <div relative flex-1 id="things_main">
-    <router-view />
+    <!-- <router-view /> -->
   </div>
 </template>
 
