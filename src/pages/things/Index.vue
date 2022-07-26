@@ -3,6 +3,7 @@ import { useNavStore } from './stores/index'
 
 const nav = useNavStore()
 nav.init()
+
 onMounted(() => {
   // `invoke` returns a Promise
   setTimeout(() => {
@@ -27,8 +28,14 @@ onMounted(() => {
           <span>{{ item.name }}</span>
         </nav>
       </div>
-      <footer flex-0>
-        content
+      <footer flex-0 frb pr-2rem>
+        <button icon-btn frc hover:border p-1>
+          <div i-carbon-add font-bold />
+          <span>NewList</span>
+        </button>
+        <button icon-btn hover:border p-1>
+          <div i="carbon-settings-adjust" />
+        </button>
       </footer>
     </template>
     <template #main>
