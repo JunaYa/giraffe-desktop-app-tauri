@@ -39,7 +39,7 @@ onMounted(() => {
             </button>
           </template>
           <div style="background: rgb(40, 50, 57);" rounded-1 p-4px break-after-all>
-            <div hover:bg-blue rounded-1 frs>
+            <div hover:bg-blue rounded-1 frs @click="nav.addAreaOrProject('New Project', 'project')">
               <div i-carbon-in-progress color-bluegray w-1rem h-1rem mr-4px mt-2px self-start/>
               <div>
                 <div color-white font-bold>New Project</div>
@@ -47,7 +47,7 @@ onMounted(() => {
               </div>
             </div>
             <div h-1px divide-solid bg-gray mt-12px mb-12px/>
-            <div hover:bg-blue rounded-1 frs>
+            <div hover:bg-blue rounded-1 frs @click="nav.addAreaOrProject('New Area', 'area')">
               <div i-carbon-layers color-green w-1rem h-1rem mr-4px mt-2px self-start/>
               <div>
                 <div color-white font-bold>New Area</div>

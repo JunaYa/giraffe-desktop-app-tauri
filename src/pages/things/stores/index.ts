@@ -26,10 +26,11 @@ export const useNavStore = defineStore('main', {
     activeMenu(page: number) {
       this.currentPage = page
     },
-    addAearOrProject(name: string, type: string) {
+    addAreaOrProject(name: string, type: string) {
       this.navList.push({
         id: this.navList.length + 1,
         name,
+        type,
         icon: `icon-menu-${type}`,
         path: '/things/add',
         color: '#fdd502',
