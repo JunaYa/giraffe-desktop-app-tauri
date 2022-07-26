@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { useNavStore } from './stores/index'
-
+import { NPopover } from 'naive-ui'
 const nav = useNavStore()
 nav.init()
+
+const isNewItem = ref(false)
 
 onMounted(() => {
   // `invoke` returns a Promise
@@ -28,11 +30,32 @@ onMounted(() => {
           <span>{{ item.name }}</span>
         </nav>
       </div>
-      <footer flex-0 frb pr-2rem>
-        <button icon-btn frc hover:border p-1>
-          <div i-carbon-add font-bold />
-          <span>NewList</span>
-        </button>
+      <footer flex-0 frb p-1 pr-2rem>
+        <NPopover trigger="click" placement="top" :show-arrow="false" style="background: rgb(40, 50, 57);">
+          <template #trigger>
+            <button class="newList" relative icon-btn frc hover:border p-1>
+              <div i-carbon-add font-bold />
+              <span>NewList</span>
+            </button>
+          </template>
+          <div style="background: rgb(40, 50, 57);" rounded-1 p-4px break-after-all>
+            <div hover:bg-blue rounded-1 frs>
+              <div i-carbon-in-progress color-bluegray w-1rem h-1rem mr-4px mt-2px self-start/>
+              <div>
+                <div color-white font-bold>New Project</div>
+                <div max-w-18rem color-gray>Define a goal, then work towards it one to-do at a time</div>
+              </div>
+            </div>
+            <div h-1px divide-solid bg-gray mt-12px mb-12px/>
+            <div hover:bg-blue rounded-1 frs>
+              <div i-carbon-layers color-green w-1rem h-1rem mr-4px mt-2px self-start/>
+              <div>
+                <div color-white font-bold>New Area</div>
+                <div max-w-18rem color-gray>Group your projects and to-dos based on different responsibilities, such as Family or Work.</div>
+              </div>
+            </div>
+          </div>
+        </NPopover>
         <button icon-btn hover:border p-1>
           <div i="carbon-settings-adjust" />
         </button>
