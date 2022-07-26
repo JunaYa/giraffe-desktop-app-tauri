@@ -1,9 +1,15 @@
 import { invoke } from '@tauri-apps/api'
 import { WebviewWindow } from '@tauri-apps/api/window'
+const inTauri = () => {
+  return window.invoke
+}
 /**
  * open docs new window
  */
 export const openDocs = () => {
+  if (!inTauri())
+    return
+
   const webview = new WebviewWindow('theUniqueLabel', {
     url: 'hi/there',
   })
@@ -21,10 +27,14 @@ export const openDocs = () => {
  * close splash window
  */
 export const closeSplashscreen = () => {
+  if (!inTauri())
+    return
   invoke('close_splashscreen')
 }
 
 export const great = async (): String => {
+  if (!inTauri())
+    return ''
   const result = await invoke('greet', { name: 'World' })
   return result.response as String
 }
