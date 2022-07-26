@@ -27,7 +27,7 @@ onMounted(() => {
           active:bg-gray-200
           @click="nav.activeMenu(item)"
         >
-          <span>{{ item.name }}</span>
+          <span>{{ item.name || nav.nameMap[item.type] }}</span>
         </nav>
       </div>
       <footer flex-0 frb p-1 pr-2rem>
