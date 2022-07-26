@@ -23,9 +23,9 @@ onMounted(() => {
           :key="index"
           frb p1
           class="menu-btn"
-          :class="item.id === nav.currentNav ? 'bg-gray-200' : ''"
+          :class="item.id ? 'bg-gray-200' : ''"
           active:bg-gray-200
-          @click="nav.activeMenu(item?.id)"
+          @click="nav.activeMenu(item)"
         >
           <span>{{ item.name }}</span>
         </nav>
@@ -39,7 +39,7 @@ onMounted(() => {
             </button>
           </template>
           <div style="background: rgb(40, 50, 57);" rounded-1 p-4px break-after-all>
-            <div hover:bg-blue rounded-1 frs @click="nav.addAreaOrProject('New Project', 'project')">
+            <div hover:bg-blue rounded-1 frs @click="nav.addAreaOrProject('', 'project', 'carbon-in-progress')">
               <div i-carbon-in-progress color-bluegray w-1rem h-1rem mr-4px mt-2px self-start/>
               <div>
                 <div color-white font-bold>New Project</div>
@@ -47,7 +47,7 @@ onMounted(() => {
               </div>
             </div>
             <div h-1px divide-solid bg-gray mt-12px mb-12px/>
-            <div hover:bg-blue rounded-1 frs @click="nav.addAreaOrProject('New Area', 'area')">
+            <div hover:bg-blue rounded-1 frs @click="nav.addAreaOrProject('', 'area', 'carbon-layers')">
               <div i-carbon-layers color-green w-1rem h-1rem mr-4px mt-2px self-start/>
               <div>
                 <div color-white font-bold>New Area</div>
@@ -63,36 +63,53 @@ onMounted(() => {
     </template>
     <template #main>
       <div class="other" p-12 style="background: rgb(247, 247, 249)">
-        <div bg-white p-6 rounded-sm>
-          <div frs>
-            <input self-start mt-1 type="checkbox" mr-2 class="default:ring-2 ...">
-            <div flex-1 fcs>
-              <input type="text" placeholder="New To-Do" block outline-none class="default:ring-2 ...">
-              <input type="text" placeholder="Notes" block outline-none mb-4 class="default:ring-2 ...">
-              <div frb>
-                <button>tody</button>
-                <div flex flex-row items-center justify-end>
-                  <button class="icon-btn mx-2 !outline-none">
-                    <div i="carbon-calendar" />
-                  </button>
-                  <button class="icon-btn mx-2 !outline-none">
-                    <div i="carbon-tag" />
-                  </button>
-                  <button class="icon-btn mx-2 !outline-none">
-                    <div i="carbon-list" />
-                  </button>
-                  <button class="icon-btn mx-2 !outline-none">
-                    <div i="carbon-flag" />
-                  </button>
+        <header mb-2rem frs >
+          <div v-if="!nav.canEdit">{{ nav.currentNav.name }}</div>
+          <div v-else >
+            <div :i="nav.currentNav.icon" :style="`color: ${nav.currentNav.color};`"></div>
+            <input :placeholder="nav.nameMap[nav.currentNav.type]"/>
+          </div>
+          <div class="icon-btn" i-carbon:overflow-menu-horizontal ml-1rem></div>
+        </header>
+        <template v-for="todoItem in nav.todoList" :key="todoItem.id">
+          <template v-if="todoItem.isEditing">
+            <div bg-white p-6 rounded-sm mb-1rem>
+              <div frs>
+                <input self-start mt-1 type="checkbox" mr-2 class="default:ring-2 ...">
+                <div flex-1 fcs>
+                  <input type="text" placeholder="New To-Do" block outline-none class="default:ring-2 ...">
+                  <input type="text" placeholder="Notes" block outline-none mb-4 class="default:ring-2 ...">
+                  <div frb>
+                    <button>tody</button>
+                    <div flex flex-row items-center justify-end>
+                      <button class="icon-btn mx-2 !outline-none">
+                        <div i="carbon-calendar" />
+                      </button>
+                      <button class="icon-btn mx-2 !outline-none">
+                        <div i="carbon-tag" />
+                      </button>
+                      <button class="icon-btn mx-2 !outline-none">
+                        <div i="carbon-list" />
+                      </button>
+                      <button class="icon-btn mx-2 !outline-none">
+                        <div i="carbon-flag" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </template>
+          <template v-else>
+            <div>
+              <div></div>
+              <div>{{todoItem.title || 'new to-do'}}</div>
+            </div>
+          </template>
+        </template>
       </div>
       <footer frc>
-        <button class="icon-btn" i="ph:plus-bold">
-          +
+        <button class="icon-btn" i="carbon-add" @click="nav.createNewTodo">
         </button>
       </footer>
     </template>

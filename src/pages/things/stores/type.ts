@@ -1,27 +1,30 @@
 export interface Menu {
-  id: Number
-  name: String
-  icon: String
-  path: String
-  active?: Boolean
-  color?: String
+  id: string
+  name: string
+  icon: string
+  path?: string
+  type: string,
+  active?: boolean
+  color?: string
 }
 
 export interface CheckList {
-  title: String,
+  title: string,
   status: number,
 }
 
 export interface Todo {
-  menuId: Number,
-  type: String,
-  title: String,
-  noted: String,
-  status: Number,
-  createaAt: String,
-  updateAt: String,
-  when: String,
-  deadline: String,
-  tags: String[],
+  pid: string,
+  id: string,
+  type: string,
+  title: string,
+  notes: string,
+  status: number,
+  isEditing: boolean,
+  createaAt: string,
+  updateAt: string,
+  when: string,
+  deadline: string,
+  tags: string[],
   checkList: CheckList[],
 }
