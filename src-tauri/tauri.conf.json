@@ -7,7 +7,7 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "giraffe-desktop-app-tauri",
+    "productName": "Giraffe",
     "version": "0.1.0"
   },
   "tauri": {
