@@ -45,6 +45,8 @@ export const useNavStore = defineStore('main', {
       this.activeMenu(this.navList[this.navList.length - 1])
     },
     createNewTodo() {
+      this.toggleEditTodo()
+
       const newTodo = {
         pid: this.currentNav.id,
         id: uuid(),
@@ -69,6 +71,15 @@ export const useNavStore = defineStore('main', {
     toggleCheckTodo(index: number) {
       this.todoList[index].checked = !this.todoList[index].checked
       this.todoList[index].updateAt = Date.now().toString()
+    },
+    updateTodoWhen(index: number, when: string) {
+      this.todoList[index].when = when
+      this.todoList[index].updateAt = Date.now().toString()
+    },
+    toggleEditTodo() {
+      const currentIndex = this.navList.findIndex(item => item.id === this.currentMenu.id)
+      if (this.todoList[currentIndex])
+        this.todoList[currentIndex].isEditing = !this.todoList[currentIndex].isEditing
     },
   },
 })

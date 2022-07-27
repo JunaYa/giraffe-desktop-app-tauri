@@ -5,6 +5,11 @@ const nav = useNavStore()
 nav.init()
 
 const isNewItem = ref(false)
+const target = ref(null)
+
+onClickOutside(target, () => {
+  nav.toggleEditTodo()
+})
 
 onMounted(() => {
   // `invoke` returns a Promise
@@ -91,7 +96,10 @@ onMounted(() => {
                   :color="!todoItem.checked ? 'gray' : 'blue'"
                   @click="nav.toggleCheckTodo(todoIndex)"
                 />
-                <div flex-1 fcs>
+                <div v-if="!todoItem.isEditing" flex-1 fcs>
+                  New To-Do
+                </div>
+                <div v-if="todoItem.isEditing" ref="target" flex-1 fcs>
                   <input type="text" placeholder="New To-Do" block outline-none class="default:ring-2 ...">
                   <input type="text" placeholder="Notes" block outline-none mb-4 class="default:ring-2 ...">
                   <div frb>
@@ -101,14 +109,14 @@ onMounted(() => {
                     <div v-if="todoItem.tags.length">
                       {{ todoItem.tags }}
                     </div>
-                    <button v-if="todoItem.when">
-                      {{ todoItem.when }}
+                    <button v-if="todoItem.when" icon-btn frc>
+                      {{ todoItem.when }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
                     </button>
                     <button v-if="todoItem.deadline">
                       {{ todoItem.deadline }}
                     </button>
                     <div flex flex-1 flex-row items-center justify-end>
-                      <button v-if="!todoItem.when" class="icon-btn mx-2 !outline-none">
+                      <button v-if="!todoItem.when" class="icon-btn mx-2 !outline-none" @click="nav.updateTodoWhen(todoIndex, Date.now().toString())">
                         <div i="carbon-calendar" />
                       </button>
                       <button v-if="!todoItem.tags.length" class="icon-btn mx-2 !outline-none">
