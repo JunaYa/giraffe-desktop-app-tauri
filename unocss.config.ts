@@ -25,6 +25,7 @@ export default defineConfig({
     ['bgimg', 'w-100% h-100% bg-contain bg-no-repeat bg-center '],
     ['bgimg-top', 'w-100% h-100% bg-contain bg-no-repeat bg-top'],
     ['bgimg-bottom', 'w-100% h-100% bg-contain bg-no-repeat bg-bottom'],
+    ['todo-selected', 'bg-blue text-white rouned-2 p-4px'],
   ],
   presets: [
     presetUno(),

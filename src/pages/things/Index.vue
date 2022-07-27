@@ -5,13 +5,12 @@ import type { Todo } from './stores/type'
 const nav = useNavStore()
 nav.init()
 
-const target = ref(null)
-
-onClickOutside(target, () => {
+function onClickOutside() {
+  console.log('------')
   nav.closeEditTodo()
   nav.closeSelectedTodo()
   nav.setCurrentTodo({} as Todo)
-})
+}
 
 function onTodoSelect(todo: Todo) {
   nav.setCurrentTodo(todo)
@@ -89,7 +88,7 @@ onMounted(() => {
       </footer>
     </template>
     <template #main>
-      <div class="other" p-12 bg-white :style="nav.isEditingTodo ? 'color: rgb(247, 247, 249)' : ''">
+      <div class="other" p-12 bg-white :style="nav.isEditingTodo ? 'background: rgb(247, 247, 249)' : ''">
         <header mb-2rem frs>
           <div v-if="!nav.canEdit">
             {{ nav.currentNav.name }}
@@ -101,63 +100,55 @@ onMounted(() => {
           <div class="icon-btn" i-carbon:overflow-menu-horizontal ml-1rem />
         </header>
         <template v-for="(todoItem, todoIndex) in nav.todoList" :key="todoItem.id">
-          <template v-if="todoItem.isEditing">
-            <div bg-white p-6 rounded-sm mb-1rem shadow-lg>
-              <div frs>
-                <div
-                  self-start mt-1px mr-4px
-                  :i="!todoItem.checked ? 'carbon-checkbox' : 'carbon-checkbox-checked'"
-                  :color="!todoItem.checked ? 'gray' : 'blue'"
-                  @click="nav.toggleCheckTodo(todoIndex)"
-                />
-                <div
-                  v-if="!todoItem.isEditing" flex-1 fcs
-                  :style="todoItem.selected ? '' : ''"
-                  @click="onTodoSelect(todoItem)"
-                >
-                  New To-Do
-                </div>
-                <div v-if="todoItem.isEditing" ref="target" flex-1 fcs>
-                  <input type="text" placeholder="New To-Do" block outline-none class="default:ring-2 ...">
-                  <input type="text" placeholder="Notes" block outline-none mb-4 class="default:ring-2 ...">
-                  <div frb>
-                    <div v-if="todoItem.checkList.length">
-                      {{ todoItem.checkList }}
-                    </div>
-                    <div v-if="todoItem.tags.length">
-                      {{ todoItem.tags }}
-                    </div>
-                    <button v-if="todoItem.when" icon-btn frc>
-                      {{ todoItem.when }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
+          <div bg-white p-6 rounded-sm mb-1rem shadow border-solid border-color-gray100 border-width-2px>
+            <div frs>
+              <div
+                self-start mt-1px mr-4px
+                :i="!todoItem.checked ? 'carbon-checkbox' : 'carbon-checkbox-checked'"
+                :color="!todoItem.checked ? 'gray' : 'blue'"
+                @click="nav.toggleCheckTodo(todoIndex)"
+              />
+              <div
+                v-if="!todoItem.isEditing" flex-1 fcs
+                color-gray
+                @click="onTodoSelect(todoItem)"
+              >
+                New To-Do
+              </div>
+              <div v-if="todoItem.isEditing" flex-1 fcs color-black300>
+                <input type="text" placeholder="New To-Do" block outline-none color-black>
+                <input type="text" placeholder="Notes" block outline-none mb-4 color-black>
+                <div frb>
+                  <div v-if="todoItem.checkList.length">
+                    {{ todoItem.checkList }}
+                  </div>
+                  <div v-if="todoItem.tags.length">
+                    {{ todoItem.tags }}
+                  </div>
+                  <button v-if="todoItem.when" icon-btn frc>
+                    {{ todoItem.when }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
+                  </button>
+                  <button v-if="todoItem.deadline">
+                    {{ todoItem.deadline }}
+                  </button>
+                  <div flex flex-1 flex-row items-center justify-end>
+                    <button v-if="!todoItem.when" class="icon-btn mx-2 !outline-none color-gray" @click="nav.updateTodoWhen(todoIndex, Date.now().toString())">
+                      <div i="carbon-calendar" />
                     </button>
-                    <button v-if="todoItem.deadline">
-                      {{ todoItem.deadline }}
+                    <button v-if="!todoItem.tags.length" class="icon-btn mx-2 !outline-none color-gray">
+                      <div i="carbon-tag" />
                     </button>
-                    <div flex flex-1 flex-row items-center justify-end>
-                      <button v-if="!todoItem.when" class="icon-btn mx-2 !outline-none" @click="nav.updateTodoWhen(todoIndex, Date.now().toString())">
-                        <div i="carbon-calendar" />
-                      </button>
-                      <button v-if="!todoItem.tags.length" class="icon-btn mx-2 !outline-none">
-                        <div i="carbon-tag" />
-                      </button>
-                      <button v-if="!todoItem.checkList.length" class="icon-btn mx-2 !outline-none">
-                        <div i="carbon-list" />
-                      </button>
-                      <button v-if="!todoItem.deadline" class="icon-btn mx-2 !outline-none">
-                        <div i="carbon-flag" />
-                      </button>
-                    </div>
+                    <button v-if="!todoItem.checkList.length" class="icon-btn mx-2 !outline-none color-gray">
+                      <div i="carbon-list" />
+                    </button>
+                    <button v-if="!todoItem.deadline" class="icon-btn mx-2 !outline-none color-gray">
+                      <div i="carbon-flag" />
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-          </template>
-          <template v-else>
-            <div>
-              <div />
-              <div>{{ todoItem.title || 'new to-do' }}</div>
-            </div>
-          </template>
+          </div>
         </template>
       </div>
       <footer frc>
