@@ -12,6 +12,7 @@ export const useNavStore = defineStore('main', {
       currentMenu: getMenuList()[0] as Menu,
       navList: getMenuList() as Menu[],
       todoList: [] as Todo[],
+      currentTodo: {} as Todo,
     }
   },
   getters: {
@@ -21,6 +22,9 @@ export const useNavStore = defineStore('main', {
     nameMap: (): Record<string, string> => NAV_MAP,
     canEdit: (state): boolean => {
       return Object.keys(NAV_MAP).includes(state.currentMenu.type)
+    },
+    isEditingTodo: (state): boolean => {
+      return state.currentTodo.isEditing
     },
   },
   actions: {
@@ -45,7 +49,7 @@ export const useNavStore = defineStore('main', {
       this.activeMenu(this.navList[this.navList.length - 1])
     },
     createNewTodo() {
-      this.toggleEditTodo()
+      this.closeEditTodo()
 
       const newTodo = {
         pid: this.currentNav.id,
@@ -54,6 +58,7 @@ export const useNavStore = defineStore('main', {
         title: '',
         notes: '',
         checked: false,
+        selected: false,
         status: 0,
         isEditing: true,
         createaAt: Date.now().toString(),
@@ -64,6 +69,7 @@ export const useNavStore = defineStore('main', {
         checkList: [],
       } as Todo
       this.todoList.push(newTodo)
+      this.currentTodo = newTodo
     },
     updateTodo(index: number, todo: Todo) {
       this.todoList[index] = todo
@@ -76,10 +82,42 @@ export const useNavStore = defineStore('main', {
       this.todoList[index].when = when
       this.todoList[index].updateAt = Date.now().toString()
     },
+    updateTodoSelect(index: number) {
+      this.todoList[index].selected = !this.todoList[index].selected
+      this.todoList[index].updateAt = Date.now().toString()
+    },
+    setCurrentTodo(todo: Todo) {
+      this.currentTodo = todo
+    },
     toggleEditTodo() {
-      const currentIndex = this.navList.findIndex(item => item.id === this.currentMenu.id)
+      const currentIndex = this.todoList.findIndex(item => item.id === this.currentTodo.id)
       if (this.todoList[currentIndex])
         this.todoList[currentIndex].isEditing = !this.todoList[currentIndex].isEditing
+    },
+    closeEditTodo() {
+      const currentIndex = this.todoList.findIndex(item => item.id === this.currentTodo.id)
+      if (this.todoList[currentIndex])
+        this.todoList[currentIndex].isEditing = false
+    },
+    openEditTodo() {
+      const currentIndex = this.todoList.findIndex(item => item.id === this.currentTodo.id)
+      if (this.todoList[currentIndex])
+        this.todoList[currentIndex].isEditing = true
+    },
+    toggleSelectedTodo() {
+      const currentIndex = this.todoList.findIndex(item => item.id === this.currentTodo.id)
+      if (this.todoList[currentIndex])
+        this.todoList[currentIndex].selected = !this.todoList[currentIndex].selected
+    },
+    closeSelectedTodo() {
+      const currentIndex = this.todoList.findIndex(item => item.id === this.currentTodo.id)
+      if (this.todoList[currentIndex])
+        this.todoList[currentIndex].selected = false
+    },
+    openSelectedTodo() {
+      const currentIndex = this.todoList.findIndex(item => item.id === this.currentTodo.id)
+      if (this.todoList[currentIndex])
+        this.todoList[currentIndex].selected = true
     },
   },
 })

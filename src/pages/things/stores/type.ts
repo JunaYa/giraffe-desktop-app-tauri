@@ -22,6 +22,7 @@ export interface Todo {
   status: number
   checked: boolean
   isEditing: boolean
+  selected: boolean
   createaAt: string
   updateAt: string
   when: string

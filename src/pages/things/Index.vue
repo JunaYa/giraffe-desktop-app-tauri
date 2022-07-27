@@ -1,15 +1,29 @@
 <script lang="ts" setup>
 import { NPopover } from 'naive-ui'
 import { useNavStore } from './stores/index'
+import type { Todo } from './stores/type'
 const nav = useNavStore()
 nav.init()
 
-const isNewItem = ref(false)
 const target = ref(null)
 
 onClickOutside(target, () => {
-  nav.toggleEditTodo()
+  nav.closeEditTodo()
+  nav.closeSelectedTodo()
+  nav.setCurrentTodo({} as Todo)
 })
+
+function onTodoSelect(todo: Todo) {
+  nav.setCurrentTodo(todo)
+  if (nav.currentTodo.id === todo.id) {
+    nav.openEditTodo()
+    return
+  }
+  const timeoutId = setTimeout(() => {
+    nav.openSelectedTodo()
+    clearTimeout(timeoutId)
+  }, 300)
+}
 
 onMounted(() => {
   // `invoke` returns a Promise
@@ -75,7 +89,7 @@ onMounted(() => {
       </footer>
     </template>
     <template #main>
-      <div class="other" p-12 style="background: rgb(247, 247, 249)">
+      <div class="other" p-12 bg-white :style="nav.isEditingTodo ? 'color: rgb(247, 247, 249)' : ''">
         <header mb-2rem frs>
           <div v-if="!nav.canEdit">
             {{ nav.currentNav.name }}
@@ -96,7 +110,11 @@ onMounted(() => {
                   :color="!todoItem.checked ? 'gray' : 'blue'"
                   @click="nav.toggleCheckTodo(todoIndex)"
                 />
-                <div v-if="!todoItem.isEditing" flex-1 fcs>
+                <div
+                  v-if="!todoItem.isEditing" flex-1 fcs
+                  :style="todoItem.selected ? '' : ''"
+                  @click="onTodoSelect(todoItem)"
+                >
                   New To-Do
                 </div>
                 <div v-if="todoItem.isEditing" ref="target" flex-1 fcs>
