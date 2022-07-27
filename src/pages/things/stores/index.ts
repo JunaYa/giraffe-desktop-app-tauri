@@ -37,6 +37,9 @@ export const useNavStore = defineStore('main', {
     activeMenu(menu: Menu) {
       this.currentMenu = menu
     },
+    updateNavName(name: string) {
+      this.currentMenu.name = name
+    },
     addAreaOrProject(name: string, type: string, icon: string) {
       this.navList.push({
         id: uuid(),

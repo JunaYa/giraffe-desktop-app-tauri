@@ -88,7 +88,7 @@ onMounted(() => {
           </div>
           <div v-else>
             <div :i="nav.currentNav.icon" :style="`color: ${nav.currentNav.color};`" />
-            <input :placeholder="nav.nameMap[nav.currentNav.type]">
+            <input v-model="nav.currentMenu.name" :placeholder="nav.nameMap[nav.currentNav.type]" @blue="nav.updateNavName(nav.currentMenu)">
           </div>
           <div class="icon-btn" i-carbon:overflow-menu-horizontal ml-1rem />
         </header>
