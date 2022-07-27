@@ -17,6 +17,7 @@ export default defineConfig({
     ['frb', 'flex flex-row items-center justify-between'],
     ['frc', 'flex flex-row items-center justify-center'],
     ['frs', 'flex flex-row items-center justify-flex-start'],
+    ['fre', 'flex flex-row items-center justify-flex-end'],
     ['fca', 'flex flex-col items-center justify-around'],
     ['fcb', 'flex flex-col items-center justify-between'],
     ['fcc', 'flex flex-col items-center justify-center'],

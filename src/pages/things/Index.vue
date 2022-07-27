@@ -95,18 +95,29 @@ onMounted(() => {
                   <input type="text" placeholder="New To-Do" block outline-none class="default:ring-2 ...">
                   <input type="text" placeholder="Notes" block outline-none mb-4 class="default:ring-2 ...">
                   <div frb>
-                    <button>tody</button>
-                    <div flex flex-row items-center justify-end>
-                      <button class="icon-btn mx-2 !outline-none">
+                    <div v-if="todoItem.checkList.length">
+                      {{ todoItem.checkList }}
+                    </div>
+                    <div v-if="todoItem.tags.length">
+                      {{ todoItem.tags }}
+                    </div>
+                    <button v-if="todoItem.when">
+                      {{ todoItem.when }}
+                    </button>
+                    <button v-if="todoItem.deadline">
+                      {{ todoItem.deadline }}
+                    </button>
+                    <div flex flex-1 flex-row items-center justify-end>
+                      <button v-if="!todoItem.when" class="icon-btn mx-2 !outline-none">
                         <div i="carbon-calendar" />
                       </button>
-                      <button class="icon-btn mx-2 !outline-none">
+                      <button v-if="!todoItem.tags.length" class="icon-btn mx-2 !outline-none">
                         <div i="carbon-tag" />
                       </button>
-                      <button class="icon-btn mx-2 !outline-none">
+                      <button v-if="!todoItem.checkList.length" class="icon-btn mx-2 !outline-none">
                         <div i="carbon-list" />
                       </button>
-                      <button class="icon-btn mx-2 !outline-none">
+                      <button v-if="!todoItem.deadline" class="icon-btn mx-2 !outline-none">
                         <div i="carbon-flag" />
                       </button>
                     </div>
