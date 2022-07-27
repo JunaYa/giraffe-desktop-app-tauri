@@ -73,6 +73,7 @@ export const useNavStore = defineStore('main', {
     },
     updateTodo(index: number, todo: Todo) {
       this.todoList[index] = todo
+      this.todoList[index].updateAt = Date.now().toString()
     },
     toggleCheckTodo(index: number) {
       this.todoList[index].checked = !this.todoList[index].checked
@@ -80,6 +81,14 @@ export const useNavStore = defineStore('main', {
     },
     updateTodoWhen(index: number, when: string) {
       this.todoList[index].when = when
+      this.todoList[index].updateAt = Date.now().toString()
+    },
+    updateTodoTitle(index: number, title: string) {
+      this.todoList[index].title = title
+      this.todoList[index].updateAt = Date.now().toString()
+    },
+    updateTodoNotes(index: number, notes: string) {
+      this.todoList[index].notes = notes
       this.todoList[index].updateAt = Date.now().toString()
     },
     updateTodoSelect(index: number) {
@@ -118,6 +127,11 @@ export const useNavStore = defineStore('main', {
       const currentIndex = this.todoList.findIndex(item => item.id === this.currentTodo.id)
       if (this.todoList[currentIndex])
         this.todoList[currentIndex].selected = true
+    },
+    cancelTodo() {
+      this.closeEditTodo()
+      this.closeSelectedTodo()
+      this.setCurrentTodo({} as Todo)
     },
   },
 })

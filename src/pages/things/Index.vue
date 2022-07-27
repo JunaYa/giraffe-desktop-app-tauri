@@ -5,13 +5,6 @@ import type { Todo } from './stores/type'
 const nav = useNavStore()
 nav.init()
 
-function cancelEdit() {
-  console.log('------')
-  nav.closeEditTodo()
-  nav.closeSelectedTodo()
-  nav.setCurrentTodo({} as Todo)
-}
-
 function onTodoSelect(todo: Todo) {
   nav.setCurrentTodo(todo)
   if (nav.currentTodo.id === todo.id) {
@@ -88,7 +81,7 @@ onMounted(() => {
       </footer>
     </template>
     <template #main>
-      <div class="other" p-12 bg-white :style="nav.isEditingTodo ? 'background: rgb(247, 247, 249)' : ''" @click="cancelEdit">
+      <div class="other" p-12 bg-white :style="nav.isEditingTodo ? 'background: rgb(247, 247, 249)' : ''" @click="nav.cancelTodo">
         <header mb-2rem frs>
           <div v-if="!nav.canEdit">
             {{ nav.currentNav.name }}
@@ -115,9 +108,21 @@ onMounted(() => {
               >
                 New To-Do
               </div>
-              <div v-if="todoItem.isEditing" flex-1 fcs color-black300>
-                <input type="text" placeholder="New To-Do" block outline-none color-black>
-                <input type="text" placeholder="Notes" block outline-none mb-4 color-black>
+              <form v-show="todoItem.isEditing" flex-1 fcs color-black300>
+                <input
+                  v-model="todoItem.title"
+                  type="text"
+                  placeholder="New To-Do"
+                  block outline-none color-black
+                  @blur="nav.updateTodoTitle(todoIndex, todoItem.title)"
+                >
+                <input
+                  v-model="todoItem.notes"
+                  type="text"
+                  placeholder="Notes"
+                  block outline-none mb-4 color-black
+                  @blur="nav.updateTodoNotes(todoIndex, todoItem.notes)"
+                >
                 <div frb>
                   <div v-if="todoItem.checkList.length">
                     {{ todoItem.checkList }}
@@ -146,7 +151,7 @@ onMounted(() => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </template>
