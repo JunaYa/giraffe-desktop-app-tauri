@@ -5,15 +5,19 @@ import type { Todo } from './stores/type'
 const nav = useNavStore()
 nav.init()
 
+const timeoutId = ref()
 function onTodoSelect(todo: Todo) {
   nav.setCurrentTodo(todo)
-  if (nav.currentTodo.id === todo.id) {
+  nav.openSelectedTodo()
+  if (timeoutId.value && nav.currentTodo.id === todo.id) {
+    clearTimeout(timeoutId.value)
     nav.openEditTodo()
+    nav.closeSelectedTodo()
     return
   }
-  const timeoutId = setTimeout(() => {
-    nav.openSelectedTodo()
-    clearTimeout(timeoutId)
+  timeoutId.value = setTimeout(() => {
+    clearTimeout(timeoutId.value)
+    timeoutId.value = 0
   }, 300)
 }
 
@@ -93,7 +97,7 @@ onMounted(() => {
           <div class="icon-btn" i-carbon:overflow-menu-horizontal ml-1rem />
         </header>
         <template v-for="(todoItem, todoIndex) in nav.todoList" :key="todoItem.id">
-          <div bg-white p-6 rounded-sm mb-1rem shadow border-solid border-color-gray100 border-width-2px @click.stop="() => {}">
+          <div :bg="todoItem.selected ? 'blue300' : 'white'" p-6 rounded-sm mb-1rem shadow border-solid border-color-gray100 border-width-2px @click.stop="() => {}">
             <div frs>
               <div
                 self-start mt-1px mr-4px
@@ -106,7 +110,7 @@ onMounted(() => {
                 color-gray
                 @click="onTodoSelect(todoItem)"
               >
-                New To-Do
+                {{ todoItem.title || 'New to-do' }}
               </div>
               <form v-show="todoItem.isEditing" flex-1 fcs color-black300>
                 <input
