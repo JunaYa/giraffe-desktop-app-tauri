@@ -5,7 +5,7 @@ import type { Todo } from './stores/type'
 const nav = useNavStore()
 nav.init()
 
-function onClickOutside() {
+function cancelEdit() {
   console.log('------')
   nav.closeEditTodo()
   nav.closeSelectedTodo()
@@ -88,7 +88,7 @@ onMounted(() => {
       </footer>
     </template>
     <template #main>
-      <div class="other" p-12 bg-white :style="nav.isEditingTodo ? 'background: rgb(247, 247, 249)' : ''">
+      <div class="other" p-12 bg-white :style="nav.isEditingTodo ? 'background: rgb(247, 247, 249)' : ''" @click="cancelEdit">
         <header mb-2rem frs>
           <div v-if="!nav.canEdit">
             {{ nav.currentNav.name }}
@@ -100,7 +100,7 @@ onMounted(() => {
           <div class="icon-btn" i-carbon:overflow-menu-horizontal ml-1rem />
         </header>
         <template v-for="(todoItem, todoIndex) in nav.todoList" :key="todoItem.id">
-          <div bg-white p-6 rounded-sm mb-1rem shadow border-solid border-color-gray100 border-width-2px>
+          <div bg-white p-6 rounded-sm mb-1rem shadow border-solid border-color-gray100 border-width-2px @click.stop="() => {}">
             <div frs>
               <div
                 self-start mt-1px mr-4px
