@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useNavStore } from './stores/index'
 import { NPopover } from 'naive-ui'
+import { useNavStore } from './stores/index'
 const nav = useNavStore()
 nav.init()
 
@@ -40,18 +40,26 @@ onMounted(() => {
           </template>
           <div style="background: rgb(40, 50, 57);" rounded-1 p-4px break-after-all>
             <div hover:bg-blue rounded-1 frs @click="nav.addAreaOrProject('', 'project', 'carbon-in-progress')">
-              <div i-carbon-in-progress color-bluegray w-1rem h-1rem mr-4px mt-2px self-start/>
+              <div i-carbon-in-progress color-bluegray w-1rem h-1rem mr-4px mt-2px self-start />
               <div>
-                <div color-white font-bold>New Project</div>
-                <div max-w-18rem color-gray>Define a goal, then work towards it one to-do at a time</div>
+                <div color-white font-bold>
+                  New Project
+                </div>
+                <div max-w-18rem color-gray>
+                  Define a goal, then work towards it one to-do at a time
+                </div>
               </div>
             </div>
-            <div h-1px divide-solid bg-gray mt-12px mb-12px/>
+            <div h-1px divide-solid bg-gray mt-12px mb-12px />
             <div hover:bg-blue rounded-1 frs @click="nav.addAreaOrProject('', 'area', 'carbon-layers')">
-              <div i-carbon-layers color-green w-1rem h-1rem mr-4px mt-2px self-start/>
+              <div i-carbon-layers color-green w-1rem h-1rem mr-4px mt-2px self-start />
               <div>
-                <div color-white font-bold>New Area</div>
-                <div max-w-18rem color-gray>Group your projects and to-dos based on different responsibilities, such as Family or Work.</div>
+                <div color-white font-bold>
+                  New Area
+                </div>
+                <div max-w-18rem color-gray>
+                  Group your projects and to-dos based on different responsibilities, such as Family or Work.
+                </div>
               </div>
             </div>
           </div>
@@ -63,19 +71,26 @@ onMounted(() => {
     </template>
     <template #main>
       <div class="other" p-12 style="background: rgb(247, 247, 249)">
-        <header mb-2rem frs >
-          <div v-if="!nav.canEdit">{{ nav.currentNav.name }}</div>
-          <div v-else >
-            <div :i="nav.currentNav.icon" :style="`color: ${nav.currentNav.color};`"></div>
-            <input :placeholder="nav.nameMap[nav.currentNav.type]"/>
+        <header mb-2rem frs>
+          <div v-if="!nav.canEdit">
+            {{ nav.currentNav.name }}
           </div>
-          <div class="icon-btn" i-carbon:overflow-menu-horizontal ml-1rem></div>
+          <div v-else>
+            <div :i="nav.currentNav.icon" :style="`color: ${nav.currentNav.color};`" />
+            <input :placeholder="nav.nameMap[nav.currentNav.type]">
+          </div>
+          <div class="icon-btn" i-carbon:overflow-menu-horizontal ml-1rem />
         </header>
-        <template v-for="todoItem in nav.todoList" :key="todoItem.id">
+        <template v-for="(todoItem, todoIndex) in nav.todoList" :key="todoItem.id">
           <template v-if="todoItem.isEditing">
-            <div bg-white p-6 rounded-sm mb-1rem>
+            <div bg-white p-6 rounded-sm mb-1rem shadow-lg>
               <div frs>
-                <input self-start mt-1 type="checkbox" mr-2 class="default:ring-2 ...">
+                <div
+                  self-start mt-1px mr-4px
+                  :i="!todoItem.checked ? 'carbon-checkbox' : 'carbon-checkbox-checked'"
+                  :color="!todoItem.checked ? 'gray' : 'blue'"
+                  @click="nav.toggleCheckTodo(todoIndex)"
+                />
                 <div flex-1 fcs>
                   <input type="text" placeholder="New To-Do" block outline-none class="default:ring-2 ...">
                   <input type="text" placeholder="Notes" block outline-none mb-4 class="default:ring-2 ...">
@@ -102,15 +117,14 @@ onMounted(() => {
           </template>
           <template v-else>
             <div>
-              <div></div>
-              <div>{{todoItem.title || 'new to-do'}}</div>
+              <div />
+              <div>{{ todoItem.title || 'new to-do' }}</div>
             </div>
           </template>
         </template>
       </div>
       <footer frc>
-        <button class="icon-btn" i="carbon-add" @click="nav.createNewTodo">
-        </button>
+        <button class="icon-btn" i="carbon-add" @click="nav.createNewTodo" />
       </footer>
     </template>
   </Slidebar>

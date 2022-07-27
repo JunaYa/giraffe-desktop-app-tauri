@@ -3,8 +3,8 @@ import { useStorage } from '@vueuse/core'
 import type { Menu, Todo } from './type'
 import getMenuList from './menus'
 const NAV_MAP = {
-  'project': 'New Project',
-  'area': 'New Area',
+  project: 'New Project',
+  area: 'New Area',
 }
 export const useNavStore = defineStore('main', {
   state: () => {
@@ -21,7 +21,7 @@ export const useNavStore = defineStore('main', {
     nameMap: (): Record<string, string> => NAV_MAP,
     canEdit: (state): boolean => {
       return Object.keys(NAV_MAP).includes(state.currentMenu.type)
-    }
+    },
   },
   actions: {
     init() {
@@ -51,6 +51,7 @@ export const useNavStore = defineStore('main', {
         type: '',
         title: '',
         notes: '',
+        checked: false,
         status: 0,
         isEditing: true,
         createaAt: Date.now().toString(),
@@ -62,7 +63,13 @@ export const useNavStore = defineStore('main', {
       } as Todo
       this.todoList.push(newTodo)
     },
-    updateTodo(todo: Todo) {}
+    updateTodo(index: number, todo: Todo) {
+      this.todoList[index] = todo
+    },
+    toggleCheckTodo(index: number) {
+      this.todoList[index].checked = !this.todoList[index].checked
+      this.todoList[index].updateAt = Date.now().toString()
+    },
   },
 })
 
