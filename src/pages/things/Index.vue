@@ -136,19 +136,22 @@ onMounted(() => {
                   @blur="nav.updateTodoNotes(todoIndex, todoItem.notes)"
                 >
                 <div frb>
-                  <div v-if="todoItem.checkList.length">
-                    {{ todoItem.checkList }}
+                  <div>
+                    <div v-if="todoItem.checkList.length">
+                      {{ todoItem.checkList }}
+                    </div>
+                    <div v-if="todoItem.tags.length">
+                      {{ todoItem.tags }}
+                    </div>
+                    <div v-if="todoItem.when" icon-btn frc>
+                      {{ todoItem.when }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
+                    </div>
+                    <div v-if="todoItem.deadline" icon-btn frc>
+                      {{ todoItem.deadline }}
+                      <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoDeadline(todoIndex, '')" />
+                    </div>
                   </div>
-                  <div v-if="todoItem.tags.length">
-                    {{ todoItem.tags }}
-                  </div>
-                  <button v-if="todoItem.when" icon-btn frc>
-                    {{ todoItem.when }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
-                  </button>
-                  <button v-if="todoItem.deadline">
-                    {{ todoItem.deadline }}
-                  </button>
-                  <div flex flex-1 flex-row items-center justify-end>
+                  <div self-end flex flex-1 flex-row items-center justify-end>
                     <button v-if="!todoItem.when" class="icon-btn mx-2 !outline-none color-gray" @click="nav.updateTodoWhen(todoIndex, Date.now().toString())">
                       <div i="carbon-calendar" />
                     </button>
@@ -158,7 +161,7 @@ onMounted(() => {
                     <button v-if="!todoItem.checkList.length" class="icon-btn mx-2 !outline-none color-gray">
                       <div i="carbon-list" />
                     </button>
-                    <button v-if="!todoItem.deadline" class="icon-btn mx-2 !outline-none color-gray">
+                    <button v-if="!todoItem.deadline" class="icon-btn mx-2 !outline-none color-gray" @click="nav.updateTodoDeadline(todoIndex, Date.now().toString())">
                       <div i="carbon-flag" />
                     </button>
                   </div>

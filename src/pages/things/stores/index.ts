@@ -88,6 +88,10 @@ export const useNavStore = defineStore('main', {
       this.todoList[index].when = when
       this.todoList[index].updateAt = Date.now().toString()
     },
+    updateTodoDeadline(index: number, deadline: string) {
+      this.todoList[index].deadline = deadline
+      this.todoList[index].updateAt = Date.now().toString()
+    },
     updateTodoTitle(index: number, title: string) {
       this.todoList[index].title = title
       this.todoList[index].updateAt = Date.now().toString()
