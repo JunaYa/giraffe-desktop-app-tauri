@@ -22,6 +22,17 @@ function onTodoSelect(todo: Todo) {
   }, 200)
 }
 
+const newTag = ref('')
+const isEditingTags = ref(false)
+
+function onNewTagChange(index: number) {
+  isEditingTags.value = false
+  nav.addTag(newTag.value)
+  nav.currentTodo.tags.push(newTag.value)
+  nav.updateTodoTags(index, nav.currentTodo.tags)
+  newTag.value = ''
+}
+
 onMounted(() => {
   // `invoke` returns a Promise
   setTimeout(() => {
@@ -120,7 +131,7 @@ onMounted(() => {
               >
                 {{ todoItem.title || 'New to-do' }}
               </div>
-              <form v-show="todoItem.isEditing" flex-1 fcs color-black300>
+              <div v-show="todoItem.isEditing" flex-1 fcs color-black300>
                 <input
                   v-model="todoItem.title"
                   type="text"
@@ -141,7 +152,7 @@ onMounted(() => {
                       {{ todoItem.checkList }}
                     </div>
                     <div v-if="todoItem.tags.length">
-                      {{ todoItem.tags }}
+                      <span v-for="(tagItem, tagIndex) in todoItem.tags" :key="`todo-tags-${tagIndex}`">{{ tagItem }}</span>
                     </div>
                     <div v-if="todoItem.when" icon-btn frc>
                       {{ todoItem.when }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
@@ -156,7 +167,30 @@ onMounted(() => {
                       <div i="carbon-calendar" />
                     </button>
                     <button v-if="!todoItem.tags.length" class="icon-btn mx-2 !outline-none color-gray">
-                      <div i="carbon-tag" />
+                      <NPopover trigger="click" placement="bottom" :show-arrow="false" style="background: rgb(40, 50, 57);">
+                        <template #trigger>
+                          <div frs>
+                            <div i="carbon-tag" mr-4px @click="isEditingTags = true" />
+                            <input
+                              v-if="isEditingTags"
+                              v-model="newTag"
+                              type="text"
+                              placeholder="Tags"
+                              block outline-none color-black max-w-4rem
+                              @blur="onNewTagChange(todoIndex)"
+                              @key.enter="onNewTagChange(todoIndex)"
+                            >
+                          </div>
+                        </template>
+                        <select v-if="nav.tags.length" style="background: rgb(40, 50, 57);" rounded-1>
+                          <option v-for="(tag, tagIndex) in nav.tags" :key="`tag-${tagIndex}`" frs hover:bg-blue rounded-1 p-2px pl-8px pr-8px>
+                            <div i="carbon-tag" color-white300 mr-4px />
+                            <div color-white>
+                              {{ tag }}
+                            </div>
+                          </option>
+                        </select>
+                      </NPopover>
                     </button>
                     <button v-if="!todoItem.checkList.length" class="icon-btn mx-2 !outline-none color-gray">
                       <div i="carbon-list" />
@@ -166,7 +200,7 @@ onMounted(() => {
                     </button>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </template>

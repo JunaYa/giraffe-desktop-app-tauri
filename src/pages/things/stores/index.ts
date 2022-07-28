@@ -14,6 +14,7 @@ export const useNavStore = defineStore('main', {
       todoList: [] as Todo[],
       currentTodo: {} as Todo,
       lastTodo: {} as Todo,
+      tags: [] as string[],
     }
   },
   getters: {
@@ -100,8 +101,8 @@ export const useNavStore = defineStore('main', {
       this.todoList[index].notes = notes
       this.todoList[index].updateAt = Date.now().toString()
     },
-    updateTodoSelect(index: number) {
-      this.todoList[index].selected = !this.todoList[index].selected
+    updateTodoTags(index: number, tags: string[]) {
+      this.todoList[index].tags = tags
       this.todoList[index].updateAt = Date.now().toString()
     },
     setCurrentTodo(todo: Todo) {
@@ -148,6 +149,11 @@ export const useNavStore = defineStore('main', {
       this.closeEditTodo()
       this.closeSelectedTodo()
       this.setCurrentTodo({} as Todo)
+    },
+
+    // tags
+    addTag(tag: string) {
+      this.tags.push(tag)
     },
   },
 })
