@@ -1,7 +1,8 @@
 import { invoke } from '@tauri-apps/api'
 import { WebviewWindow } from '@tauri-apps/api/window'
 const inTauri = () => {
-  return window.invoke
+  // return window.invoke
+  return true
 }
 /**
  * open docs new window

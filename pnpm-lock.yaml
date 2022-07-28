@@ -9,6 +9,7 @@ specifiers:
   '@tauri-apps/cli': ^1.0.4
   '@types/canvas-confetti': ^1.4.3
   '@types/node': ^18.0.6
+  '@types/uuid': ^8.3.4
   '@unocss/reset': ^0.41.2
   '@vitejs/plugin-legacy': ^1.8.2
   '@vitejs/plugin-vue': ^2.3.3
@@ -28,6 +29,7 @@ specifiers:
   unplugin-auto-import: ^0.9.3
   unplugin-vue-components: ^0.20.1
   url-parse: ^1.5.10
+  uuid: ^8.3.2
   vite: ^2.9.14
   vite-plugin-pages: ^0.24.3
   vitest: ^0.16.0
@@ -54,6 +56,7 @@ devDependencies:
   '@tauri-apps/cli': registry.npmmirror.com/@tauri-apps/cli/1.0.4
   '@types/canvas-confetti': registry.npmmirror.com/@types/canvas-confetti/1.4.3
   '@types/node': registry.npmmirror.com/@types/node/18.0.6
+  '@types/uuid': 8.3.4
   '@unocss/reset': registry.npmmirror.com/@unocss/reset/0.41.2
   '@vitejs/plugin-legacy': registry.npmmirror.com/@vitejs/plugin-legacy/1.8.2_vite@2.9.14
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/2.3.3_vite@2.9.14+vue@3.2.37
@@ -69,6 +72,7 @@ devDependencies:
   unplugin-auto-import: registry.npmmirror.com/unplugin-auto-import/0.9.4_dmt5nkmgq6u7w3gscjexvr3mxm
   unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.20.1_vite@2.9.14+vue@3.2.37
   url-parse: registry.npmmirror.com/url-parse/1.5.10
+  uuid: 8.3.2
   vite: registry.npmmirror.com/vite/2.9.14
   vite-plugin-pages: registry.npmmirror.com/vite-plugin-pages/0.24.3_vite@2.9.14
   vitest: registry.npmmirror.com/vitest/0.16.0_jsdom@20.0.0
@@ -238,6 +242,10 @@ packages:
 
   /@types/node/17.0.45:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+    dev: true
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
     dev: true
 
   /acorn-jsx/5.3.2_acorn@7.4.1:
@@ -554,10 +562,10 @@ packages:
     resolution: {integrity: sha512-qCRJWlbP2v6HbmKW7R3lFbeiVWHo+oMJ0j+MizwvauqnCV/EvtAeEeuCgoc/ErtsuoKgYB8U4Ih8AxJbXoE6/g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      acorn: 8.8.0
-      eslint-visitor-keys: 3.3.0
-      espree: 9.3.2
-      semver: 7.3.7
+      acorn: registry.npmmirror.com/acorn/8.8.0
+      eslint-visitor-keys: registry.npmmirror.com/eslint-visitor-keys/3.3.0
+      espree: registry.npmmirror.com/espree/9.3.2
+      semver: registry.npmmirror.com/semver/7.3.7
     dev: true
 
   /lodash-es/4.17.21:
@@ -621,6 +629,11 @@ packages:
 
   /treemate/0.3.11:
     resolution: {integrity: sha512-M8RGFoKtZ8dF+iwJfAJTOH/SM4KluKOKRJpjCMhI8bG3qB74zrFoArKZ62ll0Fr3mqkMJiQOmWYkdYgDeITYQg==}
+    dev: true
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
     dev: true
 
   /vdirs/0.1.8_vue@3.2.37:
@@ -2779,7 +2792,7 @@ packages:
     dependencies:
       eslint: registry.npmmirror.com/eslint/8.20.0
       eslint-utils: registry.npmmirror.com/eslint-utils/3.0.0_eslint@8.20.0
-      jsonc-eslint-parser: registry.npmmirror.com/jsonc-eslint-parser/2.1.0
+      jsonc-eslint-parser: 2.1.0
       natural-compare: registry.npmmirror.com/natural-compare/1.4.0
     dev: true
 
@@ -2916,7 +2929,7 @@ packages:
       eslint: registry.npmmirror.com/eslint/8.20.0
       lodash: registry.npmmirror.com/lodash/4.17.21
       natural-compare: registry.npmmirror.com/natural-compare/1.4.0
-      yaml-eslint-parser: registry.npmmirror.com/yaml-eslint-parser/1.0.1
+      yaml-eslint-parser: 1.0.1
     transitivePeerDependencies:
       - supports-color
     dev: true

@@ -17,6 +17,7 @@ export default defineConfig({
     ['frb', 'flex flex-row items-center justify-between'],
     ['frc', 'flex flex-row items-center justify-center'],
     ['frs', 'flex flex-row items-center justify-flex-start'],
+    ['fre', 'flex flex-row items-center justify-flex-end'],
     ['fca', 'flex flex-col items-center justify-around'],
     ['fcb', 'flex flex-col items-center justify-between'],
     ['fcc', 'flex flex-col items-center justify-center'],
@@ -24,6 +25,7 @@ export default defineConfig({
     ['bgimg', 'w-100% h-100% bg-contain bg-no-repeat bg-center '],
     ['bgimg-top', 'w-100% h-100% bg-contain bg-no-repeat bg-top'],
     ['bgimg-bottom', 'w-100% h-100% bg-contain bg-no-repeat bg-bottom'],
+    ['todo-selected', 'bg-blue text-white rouned-2 p-4px'],
   ],
   presets: [
     presetUno(),
