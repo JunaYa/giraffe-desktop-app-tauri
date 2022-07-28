@@ -13,6 +13,7 @@ export const useNavStore = defineStore('main', {
       navList: getMenuList() as Menu[],
       todoList: [] as Todo[],
       currentTodo: {} as Todo,
+      lastTodo: {} as Todo,
     }
   },
   getters: {
@@ -72,6 +73,7 @@ export const useNavStore = defineStore('main', {
         checkList: [],
       } as Todo
       this.todoList.push(newTodo)
+      this.lastTodo = this.currentTodo
       this.currentTodo = newTodo
     },
     updateTodo(index: number, todo: Todo) {
@@ -99,6 +101,7 @@ export const useNavStore = defineStore('main', {
       this.todoList[index].updateAt = Date.now().toString()
     },
     setCurrentTodo(todo: Todo) {
+      this.lastTodo = this.currentTodo
       this.currentTodo = todo
     },
     toggleEditTodo() {
@@ -113,8 +116,11 @@ export const useNavStore = defineStore('main', {
     },
     openEditTodo() {
       const currentIndex = this.todoList.findIndex(item => item.id === this.currentTodo.id)
+      const oldIndex = this.todoList.findIndex(item => item.id === this.lastTodo.id)
       if (this.todoList[currentIndex])
         this.todoList[currentIndex].isEditing = true
+      if (this.todoList[oldIndex])
+        this.todoList[oldIndex].isEditing = false
     },
     toggleSelectedTodo() {
       const currentIndex = this.todoList.findIndex(item => item.id === this.currentTodo.id)
@@ -128,8 +134,11 @@ export const useNavStore = defineStore('main', {
     },
     openSelectedTodo() {
       const currentIndex = this.todoList.findIndex(item => item.id === this.currentTodo.id)
+      const oldIndex = this.todoList.findIndex(item => item.id === this.lastTodo.id)
       if (this.todoList[currentIndex])
         this.todoList[currentIndex].selected = true
+      if (this.todoList[oldIndex])
+        this.todoList[oldIndex].selected = false
     },
     cancelTodo() {
       this.closeEditTodo()
