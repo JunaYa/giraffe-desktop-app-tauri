@@ -2,7 +2,7 @@
 name = "giraffe-desktop-app-vite"
 version = "0.1.0"
 description = "A Tauri App"
-authors = [ "you" ]
+authors = [ "ayac3j@gmail.com" ]
 license = ""
 repository = ""
 default-run = "giraffe-desktop-app-vite"
