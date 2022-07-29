@@ -251,7 +251,7 @@ onMounted(() => {
                             >
                           </div>
                         </template>
-                        <template v-if="isEditingTags && (nav.filterTags.length || newTag)">
+                        <template v-if="isEditingTags && (nav.filterTags.length || (!nav.filterTags.length && newTag))">
                           <div style="background: rgb(40, 50, 57);" rounded-1>
                             <div
                               v-if="!nav.filterTags.length || nav.filterTags.every(tag => tag.indexOf(newTag) === -1)"
