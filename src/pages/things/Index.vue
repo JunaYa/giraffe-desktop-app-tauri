@@ -25,6 +25,15 @@ function onTodoSelect(todo: Todo) {
 const newTag = ref('')
 const isEditingTags = ref(false)
 
+const newCheck = ref('')
+watch(newCheck, (value) => {
+  if (value) {
+  }
+})
+const isEditingCheck = ref(false)
+
+function onNewCheckChange() {}
+
 function onNewTagChange(index: number) {
   isEditingTags.value = false
   if (newTag.value.length === 0)
@@ -179,6 +188,19 @@ onMounted(() => {
                   <div>
                     <div v-if="todoItem.checkList.length">
                       {{ todoItem.checkList }}
+                      <div
+                        self-start mt-1px mr-4px
+                        :i="!todoItem.checked ? 'carbon-checkbox' : 'carbon-checkbox-checked'"
+                        :color="!todoItem.checked ? 'gray' : 'blue'"
+                        @click="() => {}"
+                      />
+                      <input
+                        v-if="isEditingCheck"
+                        v-model="newCheck"
+                        type="text"
+                        block outline-none color-black max-w-4rem
+                        @click.stop="() => {}"
+                      >
                     </div>
                     <div v-if="todoItem.tags.length" frs>
                       <span
@@ -281,7 +303,14 @@ onMounted(() => {
                       </NPopover>
                     </button>
                     <button v-if="!todoItem.checkList.length" class="icon-btn mx-2 !outline-none color-gray">
-                      <div i="carbon-list" />
+                      <div i="carbon-list" @click="isEditingCheck = true"/>
+                      <input
+                        v-if="isEditingCheck"
+                        v-model="newCheck"
+                        type="text"
+                        block outline-none color-black max-w-4rem
+                        @click.stop="() => {}"
+                      >
                     </button>
                     <button v-if="!todoItem.deadline" class="icon-btn mx-2 !outline-none color-gray" @click="nav.updateTodoDeadline(todoIndex, Date.now().toString())">
                       <div i="carbon-flag" />
