@@ -9,12 +9,12 @@ const NAV_MAP = {
 export const useNavStore = defineStore('main', {
   state: () => {
     return {
-      currentMenu: getMenuList()[0] as Menu,
-      navList: getMenuList() as Menu[],
-      todoList: [] as Todo[],
-      currentTodo: {} as Todo,
-      lastTodo: {} as Todo,
-      tags: [] as string[],
+      currentMenu: useStorage('currentMenu', getMenuList()[0] as Menu),
+      navList: useStorage('navList', getMenuList() as Menu[]),
+      todoList: useStorage('todoList', [] as Todo[]),
+      currentTodo: useStorage('currentTodo', {} as Todo),
+      lastTodo: useStorage('lastTodo', {} as Todo),
+      tags: useStorage('tags', [] as string[]),
     }
   },
   getters: {
