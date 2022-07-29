@@ -27,14 +27,35 @@ const isEditingTags = ref(false)
 
 function onNewTagChange(index: number) {
   isEditingTags.value = false
-  if (newTag.value.trim().length === 0)
+  if (newTag.value.length === 0)
     return
+
+  if (nav.tags.includes(newTag.value)) {
+    newTag.value = ''
+    return
+  }
 
   nav.addTag(newTag.value)
   nav.currentTodo.tags.push(newTag.value)
   nav.updateTodoTags(index, nav.currentTodo.tags)
   newTag.value = ''
 }
+
+function addTodoTag(index: number, tag: string) {
+  if (tag.length === 0 || nav.tags.includes(tag))
+    return
+
+  nav.addTodoTag(index, tag)
+  newTag.value = ''
+}
+
+const keys = useMagicKeys()
+whenever(keys.enter, () => {
+  if (newTag.value.length) {
+    const index = nav.todoList.findIndex(item => item.id === nav.currentTodo.id)
+    addTodoTag(index, newTag.value)
+  }
+})
 
 onMounted(() => {
   // `invoke` returns a Promise
@@ -167,30 +188,40 @@ onMounted(() => {
                             type="text"
                             block outline-none color-black max-w-4rem
                             @click.stop="() => {}"
-                            @blur="nav.addTodoTag(todoIndex, newTag)"
+                            @blur="addTodoTag(todoIndex, newTag)"
                           >
                         </template>
-                        <template v-if="isEditingTags">
-                          <div style="background: rgb(40, 50, 57);" rounded-1>
+                        <div v-if="nav.filterTags.length || newTag" style="background: rgb(40, 50, 57);" rounded-1>
+                          <div
+                            v-if="(!nav.filterTags.length || nav.filterTags.every(tag => tag.indexOf(newTag) === -1)) && newTag"
+                            frs bg-blue rounded-1 p-2px pl-8px pr-8px cusor-pointer
+                            @click="addTodoTag(todoIndex, newTag)"
+                          >
+                            <div color-white>
+                              New tags {{ newTag }}
+                            </div>
+                          </div>
+                          <template v-else>
                             <div
                               v-for="(tag, tagIndex) in nav.filterTags"
                               :key="`tag-${tagIndex}`"
                               frs hover:bg-blue rounded-1 p-2px pl-8px pr-8px cusor-pointer
-                              @click="nav.updateTodoTags(todoIndex, [tag])"
+                              :class="{ 'bg-blue': newTag.length > 0 && tag.indexOf(newTag) > -1 }"
+                              @click="addTodoTag(todoIndex, tag)"
                             >
                               <div i="carbon-tag" color-white300 mr-4px />
                               <div color-white>
                                 {{ tag }}
                               </div>
                             </div>
-                          </div>
-                        </template>
+                          </template>
+                        </div>
                       </NPopover>
                     </div>
-                    <div v-if="todoItem.when" icon-btn frc>
+                    <div v-if="todoItem.when" icon-btn frs>
                       {{ todoItem.when }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
                     </div>
-                    <div v-if="todoItem.deadline" icon-btn frc>
+                    <div v-if="todoItem.deadline" icon-btn frs>
                       {{ todoItem.deadline }}
                       <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoDeadline(todoIndex, '')" />
                     </div>
@@ -215,19 +246,31 @@ onMounted(() => {
                             >
                           </div>
                         </template>
-                        <template v-if="isEditingTags">
+                        <template v-if="isEditingTags && (nav.filterTags.length || newTag)">
                           <div style="background: rgb(40, 50, 57);" rounded-1>
                             <div
-                              v-for="(tag, tagIndex) in nav.filterTags"
-                              :key="`tag-${tagIndex}`"
-                              frs hover:bg-blue rounded-1 p-2px pl-8px pr-8px cusor-pointer
-                              @click="nav.updateTodoTags(todoIndex, [tag])"
+                              v-if="!nav.filterTags.length || nav.filterTags.every(tag => tag.indexOf(newTag) === -1)"
+                              frs bg-blue rounded-1 p-2px pl-8px pr-8px cusor-pointer
+                              @click="addTodoTag(todoIndex, newTag)"
                             >
-                              <div i="carbon-tag" color-white300 mr-4px />
                               <div color-white>
-                                {{ tag }}
+                                New tags {{ newTag }}
                               </div>
                             </div>
+                            <template v-else>
+                              <div
+                                v-for="(tag, tagIndex) in nav.filterTags"
+                                :key="`tag-${tagIndex}`"
+                                frs hover:bg-blue rounded-1 p-2px pl-8px pr-8px cusor-pointer
+                                :class="{ 'bg-blue': newTag.length > 0 && tag.indexOf(newTag) > -1 }"
+                                @click="addTodoTag(todoIndex, tag)"
+                              >
+                                <div i="carbon-tag" color-white300 mr-4px />
+                                <div color-white>
+                                  {{ tag }}
+                                </div>
+                              </div>
+                            </template>
                           </div>
                         </template>
                       </NPopover>

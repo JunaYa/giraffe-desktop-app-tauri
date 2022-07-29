@@ -30,7 +30,8 @@ export const useNavStore = defineStore('main', {
     },
     filterTags: (state): string[] => {
       const tags = state.currentTodo.tags
-      return state.tags.filter(tag => !tags.includes(tag))
+      // return state.tags.filter(tag => !tags.includes(tag))
+      return state.tags
     },
   },
   actions: {
@@ -78,8 +79,7 @@ export const useNavStore = defineStore('main', {
         checkList: [],
       } as Todo
       this.todoList.push(newTodo)
-      this.lastTodo = this.currentTodo
-      this.currentTodo = newTodo
+      this.setCurrentTodo(newTodo)
     },
     updateTodo(index: number, todo: Todo) {
       this.todoList[index] = todo
