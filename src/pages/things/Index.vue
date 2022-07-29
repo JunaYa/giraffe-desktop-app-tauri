@@ -154,6 +154,11 @@ onMounted(() => {
                 @click="onTodoSelect(todoItem)"
               >
                 {{ todoItem.title || 'New to-do' }}
+                <span
+                  v-for="(tagItem, tagIndex) in todoItem.tags"
+                  :key="`todo-tags-${tagIndex}`"
+                  color-gray300 rounded-1rem min-h-1rem pt-2px pb-2px pr-8px pl-8px mr-4px border-solid border-width-1px
+                >{{ tagItem }}</span>
               </div>
               <div v-show="todoItem.isEditing" flex-1 fcs color-black300>
                 <input
