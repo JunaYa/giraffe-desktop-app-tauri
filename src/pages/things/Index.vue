@@ -154,8 +154,38 @@ onMounted(() => {
                     <div v-if="todoItem.checkList.length">
                       {{ todoItem.checkList }}
                     </div>
-                    <div v-if="todoItem.tags.length">
-                      <span v-for="(tagItem, tagIndex) in todoItem.tags" :key="`todo-tags-${tagIndex}`">{{ tagItem }}</span>
+                    <div v-if="todoItem.tags.length" frs>
+                      <span
+                        v-for="(tagItem, tagIndex) in todoItem.tags"
+                        :key="`todo-tags-${tagIndex}`"
+                        bg-green300 rounded-lg min-h-1rem pt-2px pb-2px pr-8px pl-8px mr-4px
+                      >{{ tagItem }}</span>
+                      <NPopover trigger="click" placement="bottom" :show-arrow="false" style="background: rgb(40, 50, 57);">
+                        <template #trigger>
+                          <input
+                            v-model="newTag"
+                            type="text"
+                            block outline-none color-black max-w-4rem
+                            @click.stop="() => {}"
+                            @blur="nav.addTodoTag(todoIndex, newTag)"
+                          >
+                        </template>
+                        <template v-if="isEditingTags">
+                          <div style="background: rgb(40, 50, 57);" rounded-1>
+                            <div
+                              v-for="(tag, tagIndex) in nav.filterTags"
+                              :key="`tag-${tagIndex}`"
+                              frs hover:bg-blue rounded-1 p-2px pl-8px pr-8px cusor-pointer
+                              @click="nav.updateTodoTags(todoIndex, [tag])"
+                            >
+                              <div i="carbon-tag" color-white300 mr-4px />
+                              <div color-white>
+                                {{ tag }}
+                              </div>
+                            </div>
+                          </div>
+                        </template>
+                      </NPopover>
                     </div>
                     <div v-if="todoItem.when" icon-btn frc>
                       {{ todoItem.when }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
@@ -182,13 +212,17 @@ onMounted(() => {
                               block outline-none color-black max-w-4rem
                               @click.stop="() => {}"
                               @blur="onNewTagChange(todoIndex)"
-                              @key.enter="onNewTagChange(todoIndex)"
                             >
                           </div>
                         </template>
                         <template v-if="isEditingTags">
                           <div style="background: rgb(40, 50, 57);" rounded-1>
-                            <div v-for="(tag, tagIndex) in nav.tags" :key="`tag-${tagIndex}`" frs hover:bg-blue rounded-1 p-2px pl-8px pr-8px>
+                            <div
+                              v-for="(tag, tagIndex) in nav.filterTags"
+                              :key="`tag-${tagIndex}`"
+                              frs hover:bg-blue rounded-1 p-2px pl-8px pr-8px cusor-pointer
+                              @click="nav.updateTodoTags(todoIndex, [tag])"
+                            >
                               <div i="carbon-tag" color-white300 mr-4px />
                               <div color-white>
                                 {{ tag }}

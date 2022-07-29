@@ -28,6 +28,10 @@ export const useNavStore = defineStore('main', {
     isEditingTodo: (state): boolean => {
       return state.currentTodo.isEditing
     },
+    filterTags: (state): string[] => {
+      const tags = state.currentTodo.tags
+      return state.tags.filter(tag => !tags.includes(tag))
+    },
   },
   actions: {
     init() {
@@ -103,6 +107,10 @@ export const useNavStore = defineStore('main', {
     },
     updateTodoTags(index: number, tags: string[]) {
       this.todoList[index].tags = tags
+      this.todoList[index].updateAt = Date.now().toString()
+    },
+    addTodoTag(index: number, tag: string) {
+      this.todoList[index].tags.push(tag)
       this.todoList[index].updateAt = Date.now().toString()
     },
     setCurrentTodo(todo: Todo) {
