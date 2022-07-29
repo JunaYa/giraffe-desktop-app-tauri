@@ -10,7 +10,7 @@ export const useNavStore = defineStore('main', {
   state: () => {
     return {
       currentMenu: useStorage('currentMenu', getMenuList()[0] as Menu),
-      navList: useStorage('navList', getMenuList() as Menu[]),
+      navList: useStorage('navList', [] as Menu[]),
       todoList: useStorage('todoList', [] as Todo[]),
       currentTodo: useStorage('currentTodo', {} as Todo),
       lastTodo: useStorage('lastTodo', {} as Todo),
@@ -36,13 +36,19 @@ export const useNavStore = defineStore('main', {
   },
   actions: {
     init() {
-      this.navList = getMenuList()
+      if (this.navList.length === 0)
+        this.navList = getMenuList()
+
+      this.currentMenu = this.navList[0]
+      this.todoList = this.currentMenu.todoList
     },
     updateNavList(list: Array<Menu>) {
       this.navList = list
     },
     activeMenu(menu: Menu) {
+      this.cancelTodo()
       this.currentMenu = menu
+      this.todoList = this.currentMenu.todoList
     },
     updateNavName(name: string) {
       this.currentMenu.name = name
@@ -54,6 +60,7 @@ export const useNavStore = defineStore('main', {
         type,
         icon,
         path: '/things/add',
+        todoList: [],
         color: '#fdd502',
       })
       this.activeMenu(this.navList[this.navList.length - 1])

@@ -4,6 +4,7 @@ export interface Menu {
   icon: string
   path?: string
   type: string
+  todoList: Todo[]
   active?: boolean
   color?: string
 }

@@ -6,6 +6,7 @@ export default function initMenuList() {
       icon: 'icon-menu-inbox',
       path: '/things/inbox',
       type: 'inbox',
+      todoList: [],
       color: '#fdd502',
     },
     {
@@ -14,6 +15,7 @@ export default function initMenuList() {
       icon: 'icon-menu-today',
       path: '/things/today',
       type: 'today',
+      todoList: [],
       color: '#27a2f0',
     },
     {
@@ -22,6 +24,7 @@ export default function initMenuList() {
       icon: 'icon-menu-upcomming',
       path: '/things/upcomming',
       type: 'upcomming',
+      todoList: [],
       color: '#f83470',
     },
     {
@@ -30,6 +33,7 @@ export default function initMenuList() {
       icon: 'icon-menu-anytime',
       path: '/things/anytime',
       type: 'anytime',
+      todoList: [],
       color: '#37a59a',
     },
     {
@@ -38,6 +42,7 @@ export default function initMenuList() {
       icon: 'icon-menu-someday',
       path: '/things/someday',
       type: 'someday',
+      todoList: [],
       color: '#cabe86',
     },
     {
@@ -46,6 +51,7 @@ export default function initMenuList() {
       icon: 'icon-menu-logbook',
       path: '/things/logbook',
       type: 'logbook',
+      todoList: [],
       color: '#4abd5e',
     },
   ]
