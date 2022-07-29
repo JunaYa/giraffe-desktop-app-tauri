@@ -27,6 +27,9 @@ const isEditingTags = ref(false)
 
 function onNewTagChange(index: number) {
   isEditingTags.value = false
+  if (newTag.value.trim().length === 0)
+    return
+
   nav.addTag(newTag.value)
   nav.currentTodo.tags.push(newTag.value)
   nav.updateTodoTags(index, nav.currentTodo.tags)
@@ -177,19 +180,22 @@ onMounted(() => {
                               type="text"
                               placeholder="Tags"
                               block outline-none color-black max-w-4rem
+                              @click.stop="() => {}"
                               @blur="onNewTagChange(todoIndex)"
                               @key.enter="onNewTagChange(todoIndex)"
                             >
                           </div>
                         </template>
-                        <select v-if="nav.tags.length" style="background: rgb(40, 50, 57);" rounded-1>
-                          <option v-for="(tag, tagIndex) in nav.tags" :key="`tag-${tagIndex}`" frs hover:bg-blue rounded-1 p-2px pl-8px pr-8px>
-                            <div i="carbon-tag" color-white300 mr-4px />
-                            <div color-white>
-                              {{ tag }}
+                        <template v-if="isEditingTags">
+                          <div style="background: rgb(40, 50, 57);" rounded-1>
+                            <div v-for="(tag, tagIndex) in nav.tags" :key="`tag-${tagIndex}`" frs hover:bg-blue rounded-1 p-2px pl-8px pr-8px>
+                              <div i="carbon-tag" color-white300 mr-4px />
+                              <div color-white>
+                                {{ tag }}
+                              </div>
                             </div>
-                          </option>
-                        </select>
+                          </div>
+                        </template>
                       </NPopover>
                     </button>
                     <button v-if="!todoItem.checkList.length" class="icon-btn mx-2 !outline-none color-gray">
