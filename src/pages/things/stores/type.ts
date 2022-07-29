@@ -10,8 +10,8 @@ export interface Menu {
 }
 
 export interface CheckList {
-  title: string
-  status: number
+  value: string
+  checked: boolean
 }
 
 export interface Todo {

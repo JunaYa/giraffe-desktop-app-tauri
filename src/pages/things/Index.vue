@@ -28,6 +28,8 @@ const isEditingTags = ref(false)
 const newCheck = ref('')
 watch(newCheck, (value) => {
   if (value) {
+    nav.currentTodo.checkList.push({ value, checked: false })
+    newCheck.value = ''
   }
 })
 const isEditingCheck = ref(false)
@@ -186,22 +188,26 @@ onMounted(() => {
                 >
                 <div frb>
                   <div>
-                    <div v-if="todoItem.checkList.length">
-                      {{ todoItem.checkList }}
+                    <template v-if="todoItem.checkList.length">
                       <div
-                        self-start mt-1px mr-4px
-                        :i="!todoItem.checked ? 'carbon-checkbox' : 'carbon-checkbox-checked'"
-                        :color="!todoItem.checked ? 'gray' : 'blue'"
-                        @click="() => {}"
-                      />
-                      <input
-                        v-if="isEditingCheck"
-                        v-model="newCheck"
-                        type="text"
-                        block outline-none color-black max-w-4rem
-                        @click.stop="() => {}"
-                      >
-                    </div>
+                        v-for="(checkItem, checkIndex) in todoItem.checkList"
+                        :key="`check-${checkIndex}`"
+                        frs
+                        >
+                        <div
+                          self-start mt-1px mr-4px
+                          :i="!checkItem.checked ? 'carbon-checkbox' : 'carbon-checkbox-checked'"
+                          :color="!checkItem.checked ? 'gray' : 'blue'"
+                          @click="() => {}"
+                        />
+                        <input
+                          v-model="checkItem.value"
+                          type="text"
+                          block outline-none color-black max-w-4rem
+                          @click.stop="() => {}"
+                        >
+                      </div>
+                    </template>
                     <div v-if="todoItem.tags.length" frs>
                       <span
                         v-for="(tagItem, tagIndex) in todoItem.tags"
@@ -302,8 +308,8 @@ onMounted(() => {
                         </template>
                       </NPopover>
                     </button>
-                    <button v-if="!todoItem.checkList.length" class="icon-btn mx-2 !outline-none color-gray">
-                      <div i="carbon-list" @click="isEditingCheck = true"/>
+                    <button v-if="!todoItem.checkList.length" class="icon-btn mx-2 !outline-none color-gray frs">
+                      <div i="carbon-list" mr-4px @click="isEditingCheck = true"/>
                       <input
                         v-if="isEditingCheck"
                         v-model="newCheck"
