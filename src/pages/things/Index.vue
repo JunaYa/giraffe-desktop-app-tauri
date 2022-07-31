@@ -203,7 +203,7 @@ onMounted(() => {
                         <input
                           v-model="checkItem.value"
                           type="text"
-                          block outline-none color-black max-w-4rem
+                          block outline-none color-black w="100%"
                           @click.stop="() => {}"
                         >
                       </div>
