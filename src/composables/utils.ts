@@ -17,7 +17,8 @@ export const deadlineFormat = (deadline: string): string => {
   const date1 = dayjs('2019-01-25')
   const date2 = dayjs('2018-06-05')
   const date = dayjs(parseInt(deadline)).format('YYYY-MM-DD')
-  const status = `${date1.diff(date2, 'day')}` +   true ? 'left' : 'ago'
+  const status = `${date1.diff(date2, 'day')} ${true ? 'left' : 'ago'}`  
+  console.log(status)
   const day = 28
   const week = 'Fri'
   const month = 'Jan'
