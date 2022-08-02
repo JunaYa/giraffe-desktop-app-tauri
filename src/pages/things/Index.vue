@@ -255,7 +255,9 @@ onMounted(() => {
                       {{ todoItem.when }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
                     </div>
                     <div v-if="todoItem.deadline" icon-btn frs>
-                      {{ todoItem.deadline }}
+                      <div i="carbon-flag" color-black/>
+                      <span mr-8px ml-8px>Deadline:</span>
+                      {{ deadlineFormat(todoItem.deadline) }}
                       <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoDeadline(todoIndex, '')" />
                     </div>
                   </div>
