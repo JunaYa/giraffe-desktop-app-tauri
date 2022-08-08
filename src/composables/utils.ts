@@ -1,5 +1,9 @@
 import { v4 as uuidv4 } from 'uuid'
 import dayjs from 'dayjs'
+import localeData from 'dayjs/plugin/localeData'
+import weekday from 'dayjs/plugin/weekday'
+dayjs.extend(weekday)
+dayjs.extend(localeData)
 // dayjs.updateLocale('en', {
 //   weekdays: [
 //     "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
@@ -14,17 +18,16 @@ export const uuid = (): string => {
 }
 
 export const deadlineFormat = (deadline: string): string => {
-  const date1 = dayjs('2019-01-25')
-  const date2 = dayjs('2018-06-05')
-  const date = dayjs(parseInt(deadline)).format('YYYY-MM-DD')
+  const date1 = dayjs(Date.now())
+  const date2 = dayjs(parseInt(deadline))
   const status = `${date1.diff(date2, 'day')} ${true ? 'left' : 'ago'}`  
   console.log(status)
-  const day = 28
-  const week = 'Fri'
-  const month = 'Jan'
-  const year = 2021
+  const day = date2.format('DD')
+  const week = date2.weekday()
+  const month = date2.localeData().monthsShort(date2)
+  const year = date2.format('YYYY')
   const overYear = `${month} ${day}, ${year} ${status}`
-  const thisYear = `${month} ${day}, ${year} ${status}`
+  const thisYear = `${week} ${month}, ${day} ${status}`
   const otherYear = true
   return otherYear ? overYear : thisYear
 }
