@@ -18,9 +18,10 @@ export const uuid = (): string => {
 }
 
 export const deadlineFormat = (deadline: string): string => {
-  const date1 = dayjs(Date.now())
+  const date1 = dayjs()
   const date2 = dayjs(parseInt(deadline))
-  const status = `${date1.diff(date2, 'day')} ${true ? 'left' : 'ago'}`  
+  const diff = date1.diff(date2, 'day')
+  const status = `${diff === 0 ? '' : Math.abs(diff)} ${diff === 0 ? 'today' : diff < 0 ? 'left' : 'ago'}`  
   console.log(status)
   const day = date2.format('DD')
   const week = date2.weekday()
@@ -28,6 +29,6 @@ export const deadlineFormat = (deadline: string): string => {
   const year = date2.format('YYYY')
   const overYear = `${month} ${day}, ${year} ${status}`
   const thisYear = `${week} ${month}, ${day} ${status}`
-  const otherYear = true
+  const otherYear = date1.year === date2.year
   return otherYear ? overYear : thisYear
 }
