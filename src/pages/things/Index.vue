@@ -252,7 +252,8 @@ onMounted(() => {
                       </NPopover>
                     </div>
                     <div v-if="todoItem.when" icon-btn frs>
-                      {{ todoItem.when }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
+                      <div v-if="isToday(todoItem.when)" i="carbon-calendar" mr-8px/>
+                      {{ whenFormat(todoItem.when) }} <div inline-block ml-8px i-carbon-close-outline @click="nav.updateTodoWhen(todoIndex, '')" />
                     </div>
                     <div v-if="todoItem.deadline" icon-btn frs>
                       <div i="carbon-flag" color-black/>

@@ -47,6 +47,7 @@ declare global {
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
+  const isToday: typeof import('./src/composables/utils')['isToday']
   const isWeixinJSBridgeReady: typeof import('./src/composables/wechat')['isWeixinJSBridgeReady']
   const logicAnd: typeof import('@vueuse/core')['logicAnd']
   const logicNot: typeof import('@vueuse/core')['logicNot']
@@ -266,6 +267,7 @@ declare global {
   const watchThrottled: typeof import('@vueuse/core')['watchThrottled']
   const watchTriggerable: typeof import('@vueuse/core')['watchTriggerable']
   const watchWithFilter: typeof import('@vueuse/core')['watchWithFilter']
+  const whenFormat: typeof import('./src/composables/utils')['whenFormat']
   const whenever: typeof import('@vueuse/core')['whenever']
   const wxconfig: typeof import('./src/composables/wechat')['wxconfig']
 }
@@ -319,6 +321,7 @@ declare module '@vue/runtime-core' {
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
+    readonly isToday: UnwrapRef<typeof import('./src/composables/utils')['isToday']>
     readonly isWeixinJSBridgeReady: UnwrapRef<typeof import('./src/composables/wechat')['isWeixinJSBridgeReady']>
     readonly logicAnd: UnwrapRef<typeof import('@vueuse/core')['logicAnd']>
     readonly logicNot: UnwrapRef<typeof import('@vueuse/core')['logicNot']>
@@ -538,6 +541,7 @@ declare module '@vue/runtime-core' {
     readonly watchThrottled: UnwrapRef<typeof import('@vueuse/core')['watchThrottled']>
     readonly watchTriggerable: UnwrapRef<typeof import('@vueuse/core')['watchTriggerable']>
     readonly watchWithFilter: UnwrapRef<typeof import('@vueuse/core')['watchWithFilter']>
+    readonly whenFormat: UnwrapRef<typeof import('./src/composables/utils')['whenFormat']>
     readonly whenever: UnwrapRef<typeof import('@vueuse/core')['whenever']>
     readonly wxconfig: UnwrapRef<typeof import('./src/composables/wechat')['wxconfig']>
   }
