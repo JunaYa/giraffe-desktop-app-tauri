@@ -93,6 +93,7 @@ onMounted(() => {
           class="menu-btn"
           :class="item.id ? 'bg-gray-200' : ''"
           active:bg-gray-200
+          :style="{ marginBottom: index === 5 ? '34px' : '0' }"
           @click="nav.activeMenu(item)"
         >
           <span>{{ item.name || nav.nameMap[item.type] }}</span>
