@@ -91,12 +91,15 @@ onMounted(() => {
           :key="index"
           frb p1
           class="menu-btn"
-          :class="item.id ? 'bg-gray-200' : ''"
+          :class="item.id === nav.currentNav.id ? 'bg-gray-200' : ''"
           active:bg-gray-200
           :style="{ marginBottom: index === 5 ? '34px' : '0' }"
           @click="nav.activeMenu(item)"
         >
-          <span>{{ item.name || nav.nameMap[item.type] }}</span>
+          <div frb>
+            <div :class="item.icon" mr-4px/>
+            <span>{{ item.name || nav.nameMap[item.type] }}</span>
+          </div>
         </nav>
       </div>
       <footer flex-0 frb p-1 pr-2rem>

@@ -3,7 +3,7 @@ export default function initMenuList() {
     {
       id: '1001',
       name: 'InBox',
-      icon: 'icon-menu-inbox',
+      icon: 'i-carbon-layers',
       path: '/things/inbox',
       type: 'inbox',
       todoList: [],
