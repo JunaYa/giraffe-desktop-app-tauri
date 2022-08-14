@@ -218,7 +218,7 @@ onMounted(() => {
                       <span
                         v-for="(tagItem, tagIndex) in todoItem.tags"
                         :key="`todo-tags-${tagIndex}`"
-                        bg-green300 rounded-lg min-h-1rem pt-2px pb-2px pr-8px pl-8px mr-4px
+                        bg-green300 rounded-lg min-h-1rem pt-2px pb-2px pr-8px pl-8px mr-4px cursor-pointer
                         :style="curTag === tagItem ? `color: white;` : ''"
                         @click="onSelectCurrentTag(tagItem)"
                       >{{ tagItem }}</span>
@@ -234,12 +234,12 @@ onMounted(() => {
                         </template>
                         <div v-if="nav.filterTags.length || newTag" style="background: rgb(40, 50, 57);" rounded-1>
                           <div
-                            v-if="(!nav.filterTags.length || nav.filterTags.every(tag => tag.indexOf(newTag) === -1)) && newTag"
+                            v-if="(!nav.filterTags.length || nav.filterTags.every(tag => tag.indexOf(newTag) === -1))"
                             frs bg-blue rounded-1 p-2px pl-8px pr-8px cusor-pointer
                             @click="addTodoTag(todoIndex, newTag)"
                           >
                             <div color-white>
-                              New tags {{ newTag }}
+                              New tags <span bg-blue600 pr-2px pl-2px rounded-2px>{{ newTag }}</span>
                             </div>
                           </div>
                           <template v-else>
@@ -298,7 +298,7 @@ onMounted(() => {
                               @click="addTodoTag(todoIndex, newTag)"
                             >
                               <div color-white>
-                                New tags {{ newTag }}
+                                New tags <span bg-blue600 pr-2px pl-2px rounded-2px>{{ newTag }}</span>
                               </div>
                             </div>
                             <template v-else>
