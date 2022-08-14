@@ -60,6 +60,12 @@ function addTodoTag(index: number, tag: string) {
   newTag.value = ''
 }
 
+const curTag = ref('')
+function onSelectCurrentTag(tag: string) {
+  console.log('curTag', curTag)
+  curTag.value = tag
+}
+
 const keys = useMagicKeys()
 whenever(keys.enter, () => {
   if (newTag.value.length) {
@@ -213,6 +219,8 @@ onMounted(() => {
                         v-for="(tagItem, tagIndex) in todoItem.tags"
                         :key="`todo-tags-${tagIndex}`"
                         bg-green300 rounded-lg min-h-1rem pt-2px pb-2px pr-8px pl-8px mr-4px
+                        :style="curTag === tagItem ? `color: white;` : ''"
+                        @click="onSelectCurrentTag(tagItem)"
                       >{{ tagItem }}</span>
                       <NPopover trigger="click" placement="bottom" :show-arrow="false" style="background: rgb(40, 50, 57);">
                         <template #trigger>
