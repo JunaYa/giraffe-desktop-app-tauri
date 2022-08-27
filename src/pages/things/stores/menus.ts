@@ -12,7 +12,7 @@ export default function initMenuList() {
     {
       id: '1002',
       name: 'Today',
-      icon: 'icon-menu-today',
+      icon: 'i-carbon-layers',
       path: '/things/today',
       type: 'today',
       todoList: [],
@@ -21,7 +21,7 @@ export default function initMenuList() {
     {
       id: '1003',
       name: 'UpComming',
-      icon: 'icon-menu-upcomming',
+      icon: 'i-carbon-layers',
       path: '/things/upcomming',
       type: 'upcomming',
       todoList: [],
@@ -30,7 +30,7 @@ export default function initMenuList() {
     {
       id: '1004',
       name: 'Anytime',
-      icon: 'icon-menu-anytime',
+      icon: 'i-carbon-layers',
       path: '/things/anytime',
       type: 'anytime',
       todoList: [],
@@ -39,7 +39,7 @@ export default function initMenuList() {
     {
       id: '1005',
       name: 'Someday',
-      icon: 'icon-menu-someday',
+      icon: 'i-carbon-layers',
       path: '/things/someday',
       type: 'someday',
       todoList: [],
@@ -48,7 +48,7 @@ export default function initMenuList() {
     {
       id: '1006',
       name: 'Logbook',
-      icon: 'icon-menu-logbook',
+      icon: 'i-carbon-layers',
       path: '/things/logbook',
       type: 'logbook',
       todoList: [],

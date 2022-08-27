@@ -95,7 +95,7 @@ onMounted(() => {
           :style="{ marginBottom: index === 5 ? '34px' : '0' }"
           @click="nav.activeMenu(item)"
         >
-          <div frb>
+          <div frb flex-1>
             <div frs>
               <div :class="item.icon" mr-4px/>
               <span>{{ item.name || nav.nameMap[item.type] }}</span>
