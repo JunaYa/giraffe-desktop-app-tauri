@@ -117,6 +117,7 @@ export const useNavStore = defineStore('main', {
       this.todoList[index].updateAt = Date.now().toString()
     },
     addTodoTag(index: number, tag: string) {
+      this.addTag(tag)
       this.todoList[index].tags.push(tag)
       this.todoList[index].updateAt = Date.now().toString()
     },
@@ -168,7 +169,9 @@ export const useNavStore = defineStore('main', {
 
     // tags
     addTag(tag: string) {
-      this.tags.push(tag)
+      console.log('tag', tag)
+      if (!this.tags.includes(tag))
+        this.tags.push(tag)
     },
   },
 })

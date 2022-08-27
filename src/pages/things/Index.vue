@@ -46,7 +46,6 @@ function onNewTagChange(index: number) {
     return
   }
 
-  nav.addTag(newTag.value)
   nav.currentTodo.tags.push(newTag.value)
   nav.updateTodoTags(index, nav.currentTodo.tags)
   newTag.value = ''
@@ -153,6 +152,16 @@ onMounted(() => {
           </div>
           <div class="icon-btn" i-carbon:overflow-menu-horizontal ml-1rem />
         </header>
+        <div v-if="nav.tags.length" frs p-3>
+          <div mr-6px >All</div>
+          <div
+            v-for="(tag, index) in nav.filterTags"
+            :key="index"
+            mr-6px>
+            {{tag}}
+          </div>
+          <div class="icon-btn" i-carbon:overflow-menu-horizontal ml-1rem />
+        </div>
         <template v-for="(todoItem, todoIndex) in nav.todoList" :key="todoItem.id">
           <div
             :bg="todoItem.isEditing ? 'white' : todoItem.selected ? 'blue300' : ''"
