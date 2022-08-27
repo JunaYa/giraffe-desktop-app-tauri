@@ -169,7 +169,6 @@ export const useNavStore = defineStore('main', {
 
     // tags
     addTag(tag: string) {
-      console.log('tag', tag)
       if (!this.tags.includes(tag))
         this.tags.push(tag)
     },

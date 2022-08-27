@@ -96,8 +96,11 @@ onMounted(() => {
           @click="nav.activeMenu(item)"
         >
           <div frb>
-            <div :class="item.icon" mr-4px/>
-            <span>{{ item.name || nav.nameMap[item.type] }}</span>
+            <div frs>
+              <div :class="item.icon" mr-4px/>
+              <span>{{ item.name || nav.nameMap[item.type] }}</span>
+            </div>
+            <span>{{ item.todoList.length }}</span>
           </div>
         </nav>
       </div>

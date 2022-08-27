@@ -24,7 +24,6 @@ export const deadlineFormat = (deadline: string): string => {
   const date2 = dayjs(parseInt(deadline))
   const diff = date1.diff(date2, 'day')
   const status = `${diff === 0 ? '' : Math.abs(diff)} ${diff === 0 ? 'today' : diff < 0 ? 'left' : 'ago'}`  
-  console.log(status)
   const day = date2.format('DD')
   const week = date2.weekday()
   const month = date2.localeData().monthsShort(date2)
@@ -40,7 +39,6 @@ export const whenFormat = (deadline: string): string => {
   const date2 = dayjs(parseInt(deadline))
   const diff = date1.diff(date2, 'day')
   const status = `${diff === 0 ? '' : Math.abs(diff)} ${diff === 0 ? 'today' : diff < 0 ? 'left' : 'ago'}`  
-  console.log(status)
   const day = date2.format('DD')
   const week = date2.weekday()
   const month = date2.localeData().monthsShort(date2)
